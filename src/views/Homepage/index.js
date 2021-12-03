@@ -1,28 +1,21 @@
 import React from 'react'
 
 
-
-
-
-
-
 /**
- * index
+ * Homepage
  */
-function Homepage(props) {
-    const { classes } = props;
-
+function Homepage() {
 
 
     return (
-      <div className={classes.index}>
-        Hello world!
-      </div>
+        <div>
+            Hello world!
+        </div>
     )
 
 
-
 }
+
 
 
 export default Homepage;
