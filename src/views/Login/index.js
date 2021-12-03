@@ -29,38 +29,11 @@ function Login(props) {
 
     console.log('persons', persons)
 
-    // const handleClickShowPassword =(idPerson) => () => {
-    //     const dataValues = {
-    //         ...values,
-    //         showPassword: !values.showPassword,
-    //     }
-    //     setValues(dataValues);
-    //
-    //     const newArray = persons.map((person, index) => {
-    //         if(person.id === idPerson) {
-    //             return {
-    //                 ...person,
-    //                 name: 'Sidona'
-    //             }
-    //         }
-    //         return person;
-    //     })
-    //     const findElement = persons.find(person => person.id === idPerson);
-    //     const findIndex = persons.findIndex(person => person.id === idPerson);
-    //     console.log('findElement', findElement, findIndex)
-    //     findElement.name = 'Alex';
-    //     const newData = [...persons.slice(0, findIndex),
-    //         {...findElement, name: 'alex'},
-    // ...persons.slice(findIndex + 1, persons.length)]
-    //     setPersons([...persons, findElement])
-    // }
-
 
     const handleSubmit = () => {
         if (validator.isEmail(values.email)){
-            sessionStorage.setItem('userEmail', values.email );
-            sessionStorage.setItem('userPassword', values.password );
-            alert('Datele au fost introduse cu succes!')
+            localStorage.setItem('user', {email:values.email, authentificated: true});
+            alert('Email-ul au fost introduse cu succes!')
         }
 
         else
@@ -75,19 +48,6 @@ function Login(props) {
 
         }
         return setValues(data)
-        // if(type === 'email') {
-        //     const data = {
-        //         ...values,
-        //         email: event.target.value,
-        //     }
-        //     return setValues(data)
-        // } else {
-        //     const data = {
-        //         ...values,
-        //         password: event.target.value,
-        //     }
-        //     return setValues(data)
-        // }
     }
 
     return (
