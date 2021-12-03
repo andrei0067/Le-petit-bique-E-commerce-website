@@ -75,13 +75,13 @@ function Navbar() {
                     LOGO
                 </Typography>
                 <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        <Button class="button-34"
+                        <Button class="buttonCustom "
                             onClick={handleCloseNavMenu}
                             sx={{ my: 2, color: 'white', display: 'block' }}
                         >
                             Home
                         </Button>
-                        <Button class="button-34"
+                        <Button class="buttonCustom"
                             onClick={handleCloseNavMenu}
                             sx={{ my: 2, color: 'white', display: 'block' }}
                         >
