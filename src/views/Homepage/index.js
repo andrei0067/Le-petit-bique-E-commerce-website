@@ -9,7 +9,7 @@ function Homepage() {
 
     return (
         <div>
-            Hello world!
+            Homepage pls
         </div>
     )
 
