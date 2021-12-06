@@ -16,7 +16,7 @@ const person = [
         email: 'test2@test.com2'
     }
 ]
-function Login(props) {
+function ForgotPassword(props) {
     const [values, setValues] = useState({});
     const [persons, setPersons] = useState(person);
     const [passwordShown, setPasswordShown] = useState(false);
@@ -45,7 +45,6 @@ function Login(props) {
         return setValues(data)
     }
     return (
-        <div>
             <Container component="main" maxWidth="xs">
                 <Box
                     sx={{
@@ -89,11 +88,10 @@ function Login(props) {
                     </Box>
                 </Box>
             </Container>
-        </div>
     )
 
 
 }
 
 
-export default Login;
+export default ForgotPassword;

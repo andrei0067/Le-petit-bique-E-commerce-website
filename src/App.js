@@ -16,8 +16,8 @@ function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="forgotPassword" element={<ForgotPassword />} />
-                <Route path="createAccount" element={<CreateAccount />} />
+                <Route path="forgot-password" element={<ForgotPassword />} />
+                <Route path="create-account" element={<CreateAccount />} />
                 <Route exact path="/" element={<Homepage />} />
                 <Route path="login" element={<Login />} />
                 <Route path="products" element={<Products />} />

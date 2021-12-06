@@ -8,12 +8,12 @@ import {
     Container,
     FormControlLabel,
     Grid,
-    Link,
     Checkbox,
     IconButton
 } from '@mui/material';
 import LoginIcon from '@mui/icons-material/Login';
 import validator from 'validator'
+import {Link} from 'react-router-dom'
 
 
 
@@ -124,13 +124,13 @@ function Login(props) {
                             </Button>
                             <Grid container>
                                 <Grid item xs>
-                                    <Link>
+                                    <Link to="/forgot-password">
                                         Forgot password?
                                     </Link>
                                 </Grid>
                                 <Grid item>
 
-                                    <Link href="#" variant="body2">
+                                    <Link to="/create-account" variant="body2">
                                         {"Don't have an account? Sign Up"}
                                     </Link>
                                 </Grid>
