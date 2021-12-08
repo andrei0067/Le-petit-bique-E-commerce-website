@@ -1,20 +1,15 @@
 import React from 'react'
 import Navbar from "../../components/Navbar";
 import {Container} from "@mui/material";
-import Background from "../../components/Background";
 
 
 
-/**
- * Homepage
- */
-function Homepage() {
+
+function About() {
 
     return (
         <Container>
             <Navbar/>
-            <Background/>
-
         </Container>
     )
 
@@ -23,4 +18,4 @@ function Homepage() {
 
 
 
-export default Homepage;
+export default About;

@@ -14,12 +14,8 @@ import {
 import LoginIcon from '@mui/icons-material/Login';
 import validator from 'validator'
 import {Link} from 'react-router-dom'
+import Navbar from "../../components/Navbar";
 
-
-
-/**
- * Login
- */
 
 const person = [
     {
@@ -72,6 +68,7 @@ function Login(props) {
     return (
         <div>
                 <Container component="main" maxWidth="xs">
+                    <Navbar/>
                     <Box
                         sx={{
                             marginTop: 8,
@@ -107,6 +104,7 @@ function Login(props) {
                                 id="password"
                                 autoComplete="current-password"
                                 onChange={handleChange('password')}
+
                             />
 
                             <IconButton onClick={togglePassword}>Show Password</IconButton>

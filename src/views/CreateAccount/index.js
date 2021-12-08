@@ -13,23 +13,44 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import BottomCopyright from '../../components/BottomCopyright';
+import Navbar from "../../components/Navbar";
+import {useState} from "react";
+import validator from "validator";
 const theme = createTheme();
 
 
 export default function SignUp() {
+    const [values, setValues] = useState({});
+
+    const handleChange = (type) => (event) => {
+
+        console.log('type', type, 'event', event)
+        const data = {
+            ...values,
+            [type]: event.target.value
+
+        }
+        return setValues(data)
+    }
+
+
     const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        // eslint-disable-next-line no-console
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
+
+        if (validator.isEmail(values.email)){
+            localStorage.setItem('userFirstName', {email:values.firstName, authentificated: true});
+            localStorage.setItem('userLastName', {email:values.lastName, authentificated: true});
+            localStorage.setItem('userEmail', {email:values.email, authentificated: true});
+            alert('The email was saved into the storage data!')
+        }
+
+        else
+            alert('The email is not valid !')
     };
 
     return (
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs">
+                <Navbar/>
                 <CssBaseline />
                 <Box
                     sx={{
@@ -56,6 +77,7 @@ export default function SignUp() {
                                     id="firstName"
                                     label="First Name"
                                     autoFocus
+                                    onChange={handleChange('firstName')}
                                 />
                             </Grid>
                             <Grid item xs={12} sm={6}>
@@ -66,6 +88,7 @@ export default function SignUp() {
                                     label="Last Name"
                                     name="lastName"
                                     autoComplete="family-name"
+                                    onChange={handleChange('lastName')}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -76,6 +99,7 @@ export default function SignUp() {
                                     label="Email Address"
                                     name="email"
                                     autoComplete="email"
+                                    onChange={handleChange('email')}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -106,7 +130,7 @@ export default function SignUp() {
                         </Button>
                         <Grid container justifyContent="flex-end">
                             <Grid item>
-                                <Link to="/create-account" variant="body2">
+                                <Link to="/login" variant="body2">
                                     Already have an account? Sign in
                                 </Link>
                             </Grid>
@@ -115,6 +139,9 @@ export default function SignUp() {
                 </Box>
                 <BottomCopyright sx={{ mt: 5 }} />
             </Container>
+
         </ThemeProvider>
+
+
     );
 }

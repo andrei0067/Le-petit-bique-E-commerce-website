@@ -10,6 +10,8 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {useParams, useNavigate } from 'react-router-dom';
 
 import mockData from '../Products/mockData';
+import Navbar from "../../components/Navbar";
+
 
 
 const useStyles = makeStyles({
@@ -20,9 +22,6 @@ const useStyles = makeStyles({
     }
 });
 
-/**
- * Homepage
- */
 function Product(props) {
     const params = useParams()
     const { id } = params;
@@ -37,6 +36,7 @@ function Product(props) {
 
     return (
         <Container component="main" maxWidth="sm">
+           <Navbar/>
             <Box mt={2}>
                 <Button
                     className={classes.backButton}

@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@mui/styles';
 import './styles.css'
+import {Link} from "react-router-dom";
 
 import {
     Container,
@@ -12,13 +13,14 @@ import {
     Button,
 } from '@mui/material'
 
-import { Menu } from '@mui/icons-material'
+import {Menu} from '@mui/icons-material'
 
 import BasicMenu from "../Menu";
 
+
 const useStyles = makeStyles({
     toolbarCustom: {
-        backgroundColor: 'black',
+        backgroundColor: '#161a1d',
     },
     h6Custom: {
         color: 'blue',
@@ -34,10 +36,12 @@ function Navbar() {
 
     const handleCloseNavMenu = () => {
 
+
     };
     const handleOpenUserMenu = () => {
 
     }
+
 
     const customClass = { h6: classes.h6Custom };
     return <AppBar classes={{root: classes.toolbarCustom}}>
@@ -75,29 +79,60 @@ function Navbar() {
                     LOGO
                 </Typography>
                 <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+                    <Link to="/Home">
                         <Button class="buttonCustom "
                             onClick={handleCloseNavMenu}
                             sx={{ my: 2, color: 'white', display: 'block' }}
                         >
                             Home
-                        </Button>
+                            </Button>
+                    </Link>
+                    <Link to="/Products">
                         <Button class="buttonCustom"
                             onClick={handleCloseNavMenu}
                             sx={{ my: 2, color: 'white', display: 'block' }}
                         >
                             Products
                         </Button>
+                </Link>
                 </Box>
 
                 <Box sx={{ flexGrow: 0 }}>
+                    <Link to="/About">
+                        <Button class="buttonCustom "
+                                onClick={handleCloseNavMenu}
+                                sx={{ my: 2, color: 'white', display: 'block' }}
+                        >
+                            About
+                        </Button>
+                    </Link>
+                    <Link to="/create-account">
+                        <Button class="buttonCustom "
+                                onClick={handleCloseNavMenu}
+                                sx={{ my: 2, color: 'white', display: 'block' }}
+                        >
+                            SignUp
+                        </Button>
+                    </Link>
+                    <Link to="/login">
+                        <Button class="buttonCustom "
+                                onClick={handleCloseNavMenu}
+                                sx={{ my: 2, color: 'white', display: 'block' }}
+                        >
+                            Login
+                        </Button>
+                    </Link>
 
-                        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                            {/*<Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />*/}
+                        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0}}>
                                  <BasicMenu/>
                         </IconButton>
                 </Box>
             </Toolbar>
         </Container>
     </AppBar>
+
+
+
 }
+
 export default Navbar;

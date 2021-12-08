@@ -1,7 +1,10 @@
 import React, {useState} from 'react'
-import {Box, TextField, Button, Avatar, Typography, Container, Grid, Link}  from '@mui/material';
+import {Box, TextField, Button, Avatar, Typography, Container, Grid}  from '@mui/material';
 import validator from 'validator'
 import LockIcon from '@mui/icons-material/Lock';
+import Navbar from "../../components/Navbar";
+import {Link} from "react-router-dom";
+
 
 
 const person = [
@@ -19,8 +22,6 @@ const person = [
 function ForgotPassword(props) {
     const [values, setValues] = useState({});
     const [persons, setPersons] = useState(person);
-    const [passwordShown, setPasswordShown] = useState(false);
-
     console.log('persons', persons)
 
 
@@ -46,6 +47,7 @@ function ForgotPassword(props) {
     }
     return (
             <Container component="main" maxWidth="xs">
+                <Navbar/>
                 <Box
                     sx={{
                         marginTop: 8,
@@ -79,9 +81,9 @@ function ForgotPassword(props) {
                             Reset password
                         </Button>
                         <Grid container>
-                            <Grid item>
-                                <Link href="#" variant="body2">
-                                    {"Don't have an account? Sign Up"}
+                            <Grid item >
+                                <Link to="/create-account" variant="body2" >
+                                    Don't have an account? Sign Up
                                 </Link>
                             </Grid>
                         </Grid>
