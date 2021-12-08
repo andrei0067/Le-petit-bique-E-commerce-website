@@ -2,14 +2,24 @@ import React, { useState } from 'react';
 import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
 import { Link } from 'react-router-dom';
-import { SidebarData } from './SidebarData';
+import { sidebarData } from './SidebarData';
 import './styles.css';
 import { IconContext } from 'react-icons';
+import {makeStyles} from "@mui/styles";
 
+const useStyles = makeStyles({
+    navbar: {
+        backgroundColor: 'green',
+        height: '80px',
+        display: 'flex',
+        justifyContent: 'start',
+        alignItems: 'center',
+    },
+});
 
 function Sidebar() {
     const [sidebar, setSidebar] = useState(false);
-
+    const classes = useStyles();
     const showSidebar = () => setSidebar(!sidebar);
 
 
@@ -17,7 +27,7 @@ function Sidebar() {
     return (
         <>
             <IconContext.Provider value={{ color: '#008CBA' }}>
-                <div className='navbar'>
+                <div className={classes.navbar}>
                     <Link to='#' className='menu-bars'>
                         <FaIcons.FaBars onClick={showSidebar} />
                     </Link>
@@ -29,7 +39,7 @@ function Sidebar() {
                                 <AiIcons.AiOutlineClose />
                             </Link>
                         </li>
-                        {SidebarData.map((item, index) => {
+                        {sidebarData.map((item, index) => {
                             return (
                                 <li key={index} className={item.cName}>
                                     <Link to={item.path}>

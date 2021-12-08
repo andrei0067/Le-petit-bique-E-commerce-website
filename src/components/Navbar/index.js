@@ -3,6 +3,7 @@ import { makeStyles } from '@mui/styles';
 import './styles.css'
 import {Link} from "react-router-dom";
 
+
 import {
     Container,
     AppBar,
@@ -30,7 +31,7 @@ const useStyles = makeStyles({
     }
 })
 
-function Navbar() {
+function Navbar(props) {
     const classes = useStyles();
     console.log(classes);
 
@@ -58,8 +59,15 @@ function Navbar() {
                     LOGO
                 </Typography>
 
+                <IconButton onClick={props.toggleDrawer}>
+                    toggleButton
+                </IconButton>
+
+
+
                 <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                     <IconButton
+
                         size="large"
                         aria-label="account of current user"
                         aria-controls="menu-appbar"
@@ -70,14 +78,6 @@ function Navbar() {
                         <Menu />
                     </IconButton>
                 </Box>
-                <Typography
-                    variant="h6"
-                    noWrap
-                    component="div"
-                    sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
-                >
-                    LOGO
-                </Typography>
                 <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                     <Link to="/Home">
                         <Button class="buttonCustom "

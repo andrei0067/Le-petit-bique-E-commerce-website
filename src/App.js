@@ -13,13 +13,14 @@ import ForgotPassword from "./views/ForgotPassword";
 import CreateAccount from "./views/CreateAccount";
 import About from "./views/About";
 import Sidebar from "./components/Sidebar";
+import Navbar from "./components/Navbar";
 
 
 function App() {
     return (
         <BrowserRouter>
             <Routes>
-                    <Route exact path="/" element={<Sidebar/>} />
+                    <Route  path="/" element={<Homepage/>} />
                     <Route path="about" element={<About/>} />
                     <Route path="home" element={<Homepage/>} />
                     <Route path="forgot-password" element={<ForgotPassword />} />

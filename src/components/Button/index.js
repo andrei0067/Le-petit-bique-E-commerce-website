@@ -7,9 +7,4 @@ function CustomButton(props) {
     return <button className={className} onClick={onClick}>Click {children} {name}</button>
 
 }
-function MenuButton(props) {
-    const { children, name, onClick, className = 'buttonCustom' } = props;
-    return <button className={className} onClick={onClick}>Click {children} {name}</button>
-
-}
 export default CustomButton;
