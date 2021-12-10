@@ -1,15 +1,22 @@
-import React, {Fragment, useState} from 'react'
-import {Box, TextField, Button, Avatar, Typography, Container, FormControlLabel, Grid, Link, Checkbox}  from '@mui/material';
-import Visibility from '@mui/icons-material/Visibility';
+import React, {useState} from 'react'
+import {
+    Box,
+    TextField,
+    Button,
+    Avatar,
+    Typography,
+    Container,
+    FormControlLabel,
+    Grid,
+    Checkbox,
+    IconButton
+} from '@mui/material';
 import LoginIcon from '@mui/icons-material/Login';
-
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import validator from 'validator'
+import {Link} from 'react-router-dom'
+import SidebarMui from "../../components/SidebarMui";
 
 
-/**
- * Login
- */
 const person = [
     {
         id: 1,
@@ -25,19 +32,20 @@ const person = [
 function Login(props) {
     const [values, setValues] = useState({});
     const [persons, setPersons] = useState(person)
-    const [error, setError] = useState({})
 
     console.log('persons', persons)
+
+
 
 
     const handleSubmit = () => {
         if (validator.isEmail(values.email)){
             localStorage.setItem('user', {email:values.email, authentificated: true});
-            alert('Email-ul au fost introduse cu succes!')
+            alert('The email was saved into the storage data!')
         }
 
         else
-            alert('Emailul nu este valid !')
+            alert('The email is not valid !')
     }
     const handleChange = (type) => (event) => {
 
@@ -50,9 +58,17 @@ function Login(props) {
         return setValues(data)
     }
 
+    const [passwordShown, setPasswordShown] = useState(false);
+
+    const togglePassword = () => {
+        setPasswordShown(!passwordShown);
+    };
+
+
     return (
         <div>
                 <Container component="main" maxWidth="xs">
+                    <SidebarMui/>
                     <Box
                         sx={{
                             marginTop: 8,
@@ -84,11 +100,15 @@ function Login(props) {
                                 fullWidth
                                 name="password"
                                 label="Password"
-                                type="password"
+                                type={passwordShown ? "text" : "password"}
                                 id="password"
                                 autoComplete="current-password"
                                 onChange={handleChange('password')}
+
                             />
+
+                            <IconButton onClick={togglePassword}>Show Password</IconButton>
+
                             <FormControlLabel
                                 control={<Checkbox value="remember" color="primary" />}
                                 label="Remember me"
@@ -102,12 +122,13 @@ function Login(props) {
                             </Button>
                             <Grid container>
                                 <Grid item xs>
-                                    <Link href="#" variant="body2">
+                                    <Link to="/forgot-password">
                                         Forgot password?
                                     </Link>
                                 </Grid>
                                 <Grid item>
-                                    <Link href="#" variant="body2">
+
+                                    <Link to="/create-account" variant="body2">
                                         {"Don't have an account? Sign Up"}
                                     </Link>
                                 </Grid>
