@@ -23,6 +23,9 @@ import {
 import { Menu } from '@mui/icons-material';
 
 const useStyles = makeStyles({
+    drawerBackground:{
+      backgroundColor:'red',
+    },
     dividerTextColor:{
         color:'#008CBA',
     },
@@ -50,7 +53,7 @@ const useStyles = makeStyles({
     }
 })
 
-function Navbar(props) {
+function SidebarMui(props) {
     const classes = useStyles();
     const [isOpen, setDrawerOpen ] = useState()
     const handleOpenUserMenu = () => {}
@@ -58,10 +61,11 @@ function Navbar(props) {
     const toggleDrawer = () => {
         setDrawerOpen(!isOpen);
     }
-    const customClass = { h6: classes.h6Custom };
+    const drawerClass={paper:classes.drawerBackground}
     return <>
 
         <Drawer
+            classes={drawerClass}
             anchor="left"
             open={isOpen}
             onClose={toggleDrawer}
@@ -69,7 +73,6 @@ function Navbar(props) {
             <Box
                 sx={{
                     width: 250,
-                    backgroundColor:'#161a1d',
                 }}
                 role="presentation"
                 onClick={toggleDrawer}
@@ -142,30 +145,12 @@ function Navbar(props) {
                     <Typography
                         variant="h6"
                         noWrap
-                        className={customClass}
                         component="div"
                         sx={{ mr: 3, display: { xs: 'none', md: 'flex' } }}
                     >
                         <img className={classes.photo} src={companyLogo}/>
                     </Typography>
-                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-                        <IconButton
-
-                            size="large"
-                            aria-label="account of current user"
-                            aria-controls="menu-appbar"
-                            aria-haspopup="true"
-                            onClick={() => {}}
-                            color="inherit"
-                        >
-                            <Menu />
-                        </IconButton>
-                    </Box>
-                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-
-                    </Box>
-
-                    <Box sx={{ flexGrow: 0 }}>
+                    <Box sx={{ flexGrow: 0 , marginLeft:'auto' }}>
                         <Link to="/create-account">
                             <Button class="buttonCustom "
                                     onClick={handleCloseNavMenu}
@@ -188,4 +173,4 @@ function Navbar(props) {
         </AppBar>
     </>
 }
-export default Navbar;
+export default SidebarMui;
