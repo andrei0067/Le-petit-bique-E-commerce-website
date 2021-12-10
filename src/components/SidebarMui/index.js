@@ -2,6 +2,11 @@ import React, {useState} from 'react';
 import { makeStyles } from '@mui/styles';
 import {Link, NavLink} from "react-router-dom";
 import companyLogo from "./Logo.png";
+import MenuIcon from '@mui/icons-material/Menu';
+import HomeIcon from '@mui/icons-material/Home';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import InfoIcon from '@mui/icons-material/Info';
+
 import {
     Container,
     Toolbar,
@@ -13,14 +18,22 @@ import {
     Button,
     ListItem,
     ListItemText,
-    Drawer,
+    Drawer, ListItemIcon, Divider,
 } from '@mui/material'
 import { Menu } from '@mui/icons-material';
 
 const useStyles = makeStyles({
+    dividerTextColor:{
+        color:'#008CBA',
+    },
+    listTextColor:{
+        color:'white',
+    },
     photo: {
-        height: "12px" ,
-        width: "12px",
+        width: "150px",
+    },
+    drawerCustom:{
+       backgroundColor: 'blue',
     },
     toolbarCustom: {
         backgroundColor: '#161a1d',
@@ -54,7 +67,10 @@ function Navbar(props) {
             onClose={toggleDrawer}
         >
             <Box
-                sx={{ width: 250 }}
+                sx={{
+                    width: 250,
+                    backgroundColor:'#161a1d',
+                }}
                 role="presentation"
                 onClick={toggleDrawer}
                 onKeyDown={toggleDrawer}
@@ -65,15 +81,21 @@ function Navbar(props) {
                         onClick={toggleDrawer}
                         className={({isActive}) => isActive ? classes.active: ''}
                     >
-                        <ListItemText primary="x" />
+                        <ListItemIcon class={classes.listTextColor}>
+                            <MenuIcon />
+                        </ListItemIcon>
                     </ListItem>
+                    <Divider color={'grey'}/>
                     <ListItem
                         button
                         component={NavLink}
                         to="/home"
                         className={({isActive}) => isActive ? classes.active: ''}
                     >
-                        <ListItemText primary="Homepage" />
+                        <ListItemIcon class={classes.listTextColor}>
+                            <HomeIcon style={{marginRight:'20px'}}/>
+                        </ListItemIcon>
+                        <ListItemText class={classes.listTextColor} primary="Homepage"/>
                     </ListItem>
                     <ListItem
                         button
@@ -81,7 +103,11 @@ function Navbar(props) {
                         to="/products"
                         className={({isActive}) => isActive ? classes.active: ''}
                     >
-                        <ListItemText primary="Products" />
+                        <ListItemIcon class={classes.listTextColor}>
+                            <ShoppingCartIcon style={{marginRight:'20px'}}/>
+                        </ListItemIcon>
+
+                        <ListItemText class={classes.listTextColor} primary="Products" />
                     </ListItem>
                     <ListItem
                         button
@@ -89,7 +115,10 @@ function Navbar(props) {
                         to="/about"
                         className={({isActive}) => isActive ? classes.active: ''}
                     >
-                        <ListItemText primary="About" />
+                        <ListItemIcon class={classes.listTextColor}>
+                            <InfoIcon style={{marginRight:'20px'}}/>
+                        </ListItemIcon>
+                        <ListItemText class={classes.listTextColor} primary="About" />
                     </ListItem>
                 </List>
             </Box>
@@ -117,7 +146,7 @@ function Navbar(props) {
                         component="div"
                         sx={{ mr: 3, display: { xs: 'none', md: 'flex' } }}
                     >
-                        <img height={'30px'} src={companyLogo}/>
+                        <img className={classes.photo} src={companyLogo}/>
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                         <IconButton
