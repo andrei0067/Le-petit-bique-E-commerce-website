@@ -2,9 +2,9 @@ import React from 'react'
 
 import { Box, Container } from '@mui/material';
 
-import Navbar from '../../components/Navbar';
 import Homepage from "../Homepage";
 import Login from "../Login";
+import SidebarMui from "../../components/SidebarMui";
 
 
 
@@ -19,7 +19,7 @@ function GlobalWrapper(props) {
     return (
         <Container maxWidth="lg">
             <Box sx={{ flexGrow: 1 }}>
-                <Navbar/>
+                <SidebarMui/>
                 {children}
                 <Homepage />
                 <Login />

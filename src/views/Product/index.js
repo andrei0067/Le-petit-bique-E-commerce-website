@@ -10,7 +10,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {useParams, useNavigate } from 'react-router-dom';
 
 import mockData from '../Products/mockData';
-import Navbar from "../../components/Navbar";
+import SidebarMui from "../../components/SidebarMui";
 
 
 
@@ -36,7 +36,7 @@ function Product(props) {
 
     return (
         <Container component="main" maxWidth="sm">
-           <Navbar/>
+            <SidebarMui/>
             <Box mt={2}>
                 <Button
                     className={classes.backButton}

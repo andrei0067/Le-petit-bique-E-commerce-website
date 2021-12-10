@@ -7,12 +7,12 @@ import {
 import cars from './mockData';
 
 import MediaCard from './components/MediaCard';
-import Navbar from "../../components/Navbar";
+import SidebarMui from "../../components/SidebarMui";
 
 function Products() {
     return (
         <Container component="main" maxWidth="lg">
-            <Navbar/>
+            <SidebarMui/>
             <Box
                 sx={{
                     marginTop: 8,

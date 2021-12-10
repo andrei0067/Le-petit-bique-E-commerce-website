@@ -2,8 +2,8 @@ import React, {useState} from 'react'
 import {Box, TextField, Button, Avatar, Typography, Container, Grid}  from '@mui/material';
 import validator from 'validator'
 import LockIcon from '@mui/icons-material/Lock';
-import Navbar from "../../components/Navbar";
 import {Link} from "react-router-dom";
+import SidebarMui from "../../components/SidebarMui";
 
 
 
@@ -47,7 +47,7 @@ function ForgotPassword(props) {
     }
     return (
             <Container component="main" maxWidth="xs">
-                <Navbar/>
+                <SidebarMui/>
                 <Box
                     sx={{
                         marginTop: 8,

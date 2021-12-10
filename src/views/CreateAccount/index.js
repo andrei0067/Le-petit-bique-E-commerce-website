@@ -13,9 +13,9 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import BottomCopyright from '../../components/BottomCopyright';
-import Navbar from "../../components/Navbar";
 import {useState} from "react";
 import validator from "validator";
+import SidebarMui from "../../components/SidebarMui";
 const theme = createTheme();
 
 
@@ -50,7 +50,7 @@ export default function SignUp() {
     return (
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs">
-                <Navbar/>
+                <SidebarMui/>
                 <CssBaseline />
                 <Box
                     sx={{

@@ -1,7 +1,6 @@
 import React from 'react'
-import Navbar from "../../components/Navbar";
 import {Container} from "@mui/material";
-import SidebarCustom from "../../components/SidebarCustom";
+import SidebarMui from "../../components/SidebarMui";
 
 
 
@@ -10,7 +9,7 @@ function About() {
 
     return (
         <Container>
-            <SidebarCustom/>
+            <SidebarMui/>
         </Container>
     )
 

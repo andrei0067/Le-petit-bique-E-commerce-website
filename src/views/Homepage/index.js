@@ -1,7 +1,8 @@
 import React from 'react'
-import Navbar from "../../components/Navbar";
+
 import {Container} from "@mui/material";
 import Background from "../../components/Background";
+import SidebarMui from "../../components/SidebarMui";
 
 
 
@@ -12,7 +13,7 @@ function Homepage() {
 
     return (
         <Container>
-            <Navbar/>
+            <SidebarMui/>
             <Background/>
 
         </Container>

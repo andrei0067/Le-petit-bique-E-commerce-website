@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from '@mui/styles';
 import './styles.css'
 import {Link} from "react-router-dom";
+import companyLogo from "./Logo.png";
 
 
 import {
@@ -56,7 +57,7 @@ function Navbar(props) {
                     component="div"
                     sx={{ mr: 3, display: { xs: 'none', md: 'flex' } }}
                 >
-                    LOGO
+                    <img height={'30px'} src={companyLogo}/>
                 </Typography>
 
                 <IconButton onClick={props.toggleDrawer}>

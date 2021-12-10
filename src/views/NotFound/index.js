@@ -4,7 +4,7 @@ import {
     Box,
     Typography
 } from '@mui/material';
-import Navbar from "../../components/Navbar";
+import SidebarMui from "../../components/SidebarMui";
 
 
 
@@ -15,7 +15,7 @@ import Navbar from "../../components/Navbar";
 function NotFound() {
     return (
         <Container component="main" maxWidth="sm">
-            <Navbar/>
+            <SidebarMui/>
             <Box
                 sx={{
                     marginTop: 8,

@@ -14,8 +14,7 @@ import {
 import LoginIcon from '@mui/icons-material/Login';
 import validator from 'validator'
 import {Link} from 'react-router-dom'
-import Navbar from "../../components/Navbar";
-import Sidebar from "../../components/Sidebar";
+import SidebarMui from "../../components/SidebarMui";
 
 
 const person = [
@@ -69,7 +68,7 @@ function Login(props) {
     return (
         <div>
                 <Container component="main" maxWidth="xs">
-                    <Sidebar/>
+                    <SidebarMui/>
                     <Box
                         sx={{
                             marginTop: 8,
