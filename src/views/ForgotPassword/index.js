@@ -4,46 +4,39 @@ import validator from 'validator'
 import LockIcon from '@mui/icons-material/Lock';
 import {Link} from "react-router-dom";
 import SidebarMui from "../../components/SidebarMui";
+import {auth} from "../../config/firebaseConfig";
+import {
+    sendPasswordResetEmail
+} from 'firebase/auth';
 
 
-
-const person = [
-    {
-        id: 1,
-        name: 'Test',
-        email: 'test@test.com'
-    },
-    {
-        id: 2,
-        name: 'Test2',
-        email: 'test2@test.com2'
-    }
-]
 function ForgotPassword(props) {
-    const [values, setValues] = useState({});
-    const [persons, setPersons] = useState(person);
-    console.log('persons', persons)
+    const [user, setUser] = useState({});
 
-
-
-
-    const handleSubmit = () => {
-        if (validator.isEmail(values.email)){
-            localStorage.setItem('user', {email:values.email, authentificated: true});
+    const sendResetEmail = async () => {
+        JSON.stringify(user.email)
+        try {
+            if (validator.isEmail(user.email)){
+                await sendPasswordResetEmail(user.auth,user.email);
+                alert("Password reset link sent!");
+           }
+            else{
+                alert("nu prea mere")
+            }
+        } catch (err) {
+            console.error(err);
+            alert(err.message);
         }
+    };
 
-        else
-            alert('The email is not valid !')
-    }
     const handleChange = (type) => (event) => {
 
         console.log('type', type, 'event', event)
         const data = {
-            ...values,
+            ...user,
             [type]: event.target.value
-
         }
-        return setValues(data)
+        return setUser(data)
     }
     return (
             <Container component="main" maxWidth="xs">
@@ -61,7 +54,7 @@ function ForgotPassword(props) {
                     <Typography component="h1" variant="h5">
                         Forgot password
                     </Typography>
-                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                    <Box component="form" onClick={sendResetEmail} noValidate sx={{ mt: 1 }}>
                         <TextField
                             margin="normal"
                             required
@@ -74,7 +67,7 @@ function ForgotPassword(props) {
                             onChange={handleChange('email')}
                         />
                         <Button
-                            type="submit"
+                          //  type="submit"
                             fullWidth
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}>

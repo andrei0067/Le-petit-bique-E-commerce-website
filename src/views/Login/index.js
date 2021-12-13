@@ -9,56 +9,77 @@ import {
     FormControlLabel,
     Grid,
     Checkbox,
-    IconButton
+    IconButton, Divider, Snackbar
 } from '@mui/material';
+import {
+    onAuthStateChanged,
+    signOut,
+    signInWithEmailAndPassword,
+} from 'firebase/auth'
 import LoginIcon from '@mui/icons-material/Login';
-import validator from 'validator'
 import {Link} from 'react-router-dom'
 import SidebarMui from "../../components/SidebarMui";
+import { auth } from '../../config/firebaseConfig';
+import CloseIcon from "@mui/icons-material/Close";
 
-
-const person = [
-    {
-        id: 1,
-        name: 'Test',
-        email: 'test@test.com'
-    },
-    {
-        id: 2,
-        name: 'Test2',
-        email: 'test2@test.com2'
-    }
-]
 function Login(props) {
-    const [values, setValues] = useState({});
-    const [persons, setPersons] = useState(person)
-
-    console.log('persons', persons)
-
-
-
-
-    const handleSubmit = () => {
-        if (validator.isEmail(values.email)){
-            localStorage.setItem('user', {email:values.email, authentificated: true});
-            alert('The email was saved into the storage data!')
-        }
-
-        else
-            alert('The email is not valid !')
-    }
-    const handleChange = (type) => (event) => {
-
-        console.log('type', type, 'event', event)
-        const data = {
-            ...values,
-            [type]: event.target.value
-
-        }
-        return setValues(data)
-    }
-
+    const [user, setUser] = useState(null);
     const [passwordShown, setPasswordShown] = useState(false);
+    const [loginObj, setLoginObj] = useState({});
+    const [loginSuccessSnackbar, setLoginSuccessSnackbar] = useState(false);
+
+    const loginSuccessOpen = () => {
+        setLoginSuccessSnackbar(true);
+    };
+
+    const loginSuccessClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setLoginSuccessSnackbar(false);
+    };
+
+    const actionLoginSuccess = (
+        <React.Fragment>
+            <IconButton
+                size="small"
+                aria-label="close"
+                color="inherit"
+                onClick={loginSuccessClose}
+            >
+                <CloseIcon fontSize="small" />
+            </IconButton>
+        </React.Fragment>
+    );
+
+    const handleLoginChange = type => event => {
+        setLoginObj({
+            ...loginObj,
+            [type]: event.target.value
+        })
+    }
+    const handleLoginClick = async () => {
+        const { email, password } = loginObj;
+        try {
+            const createdUser =  await signInWithEmailAndPassword(auth, email, password)
+            loginSuccessOpen()
+        } catch (errors) {
+            // Tema sa afisati un mesaj ca userul exista Snackbar
+            console.log(errors.message);
+
+        }
+
+    }
+
+    // mutati in firebase si refolositi nevoie ptr ca sa refolositi
+    onAuthStateChanged(auth, (currentUser) => {
+        setUser(currentUser);
+    });
+
+    const handleLogout = () => {
+        signOut(auth);
+    }
 
     const togglePassword = () => {
         setPasswordShown(!passwordShown);
@@ -69,6 +90,13 @@ function Login(props) {
         <div>
                 <Container component="main" maxWidth="xs">
                     <SidebarMui/>
+                    <Snackbar
+                        open={loginSuccessSnackbar}
+                        autoHideDuration={6000}
+                        onClose={loginSuccessClose}
+                        message="Logged in successfully"
+                        action={actionLoginSuccess}
+                    />
                     <Box
                         sx={{
                             marginTop: 8,
@@ -82,7 +110,7 @@ function Login(props) {
                         <Typography component="h1" variant="h5">
                             Sign in
                         </Typography>
-                        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                        <Box component="form" onClick={handleLoginClick} noValidate sx={{ mt: 1 }}>
                             <TextField
                                 margin="normal"
                                 required
@@ -92,7 +120,7 @@ function Login(props) {
                                 name="email"
                                 autoComplete="email"
                                 autoFocus
-                                onChange={handleChange('email')}
+                                onChange={handleLoginChange('email')}
                             />
                             <TextField
                                 margin="normal"
@@ -103,7 +131,7 @@ function Login(props) {
                                 type={passwordShown ? "text" : "password"}
                                 id="password"
                                 autoComplete="current-password"
-                                onChange={handleChange('password')}
+                                onChange={handleLoginChange('password')}
 
                             />
 
@@ -114,12 +142,13 @@ function Login(props) {
                                 label="Remember me"
                             />
                             <Button
-                                type="submit"
+                                //type="submit"
                                 fullWidth
                                 variant="contained"
                                 sx={{ mt: 3, mb: 2 }}>
                                 Sign In
                             </Button>
+
                             <Grid container>
                                 <Grid item xs>
                                     <Link to="/forgot-password">
@@ -134,6 +163,13 @@ function Login(props) {
                                 </Grid>
                             </Grid>
                         </Box>
+                    </Box>
+                    <Box sx={{ margin: 10 }}>
+                        Auth user: {user?.email}
+
+                        <Button onClick={handleLogout}>
+                            Log out
+                        </Button>
                     </Box>
                 </Container>
         </div>
