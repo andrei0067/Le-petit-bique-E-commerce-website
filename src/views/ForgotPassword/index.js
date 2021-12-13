@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {Box, TextField, Button, Avatar, Typography, Container, Grid}  from '@mui/material';
-import validator from 'validator'
+import isEmail from 'validator/lib/isEmail';
 import LockIcon from '@mui/icons-material/Lock';
 import {Link} from "react-router-dom";
 import SidebarMui from "../../components/SidebarMui";
@@ -11,32 +11,23 @@ import {
 
 
 function ForgotPassword(props) {
-    const [user, setUser] = useState({});
+    const [email, setEmail] = useState("");
+    const isValidEmail= email ? isEmail(email) : false;
 
     const sendResetEmail = async () => {
-        JSON.stringify(user.email)
         try {
-            if (validator.isEmail(user.email)){
-                await sendPasswordResetEmail(user.auth,user.email);
-                alert("Password reset link sent!");
-           }
-            else{
-                alert("nu prea mere")
-            }
+              const response = await sendPasswordResetEmail(auth,email);
         } catch (err) {
             console.error(err);
-            alert(err.message);
         }
     };
 
-    const handleChange = (type) => (event) => {
+    const handleChangeEmail = (event) => {
 
-        console.log('type', type, 'event', event)
-        const data = {
-            ...user,
-            [type]: event.target.value
-        }
-        return setUser(data)
+        return setEmail(
+          event.target.value
+    )
+
     }
     return (
             <Container component="main" maxWidth="xs">
@@ -64,10 +55,10 @@ function ForgotPassword(props) {
                             name="email"
                             autoComplete="email"
                             autoFocus
-                            onChange={handleChange('email')}
+                            onChange={handleChangeEmail}
                         />
                         <Button
-                          //  type="submit"
+                          disabled={!isValidEmail}
                             fullWidth
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}>
