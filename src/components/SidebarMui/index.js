@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import { makeStyles } from '@mui/styles';
 import {Link, NavLink} from "react-router-dom";
 import companyLogo from "./Logo.png";
@@ -6,7 +6,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import HomeIcon from '@mui/icons-material/Home';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import InfoIcon from '@mui/icons-material/Info';
-
+import { UserContext } from '../context/UserContext'
 import {
     Container,
     Toolbar,
@@ -18,11 +18,14 @@ import {
     Button,
     ListItem,
     ListItemText,
-    Drawer, ListItemIcon, Divider,
+    Drawer, ListItemIcon, Divider, Tooltip, Avatar,
 } from '@mui/material'
 import { Menu } from '@mui/icons-material';
 
 const useStyles = makeStyles({
+    avatarStyle:{
+       color:'#008CBA',
+    },
     drawerBackground:{
       backgroundColor:'#161a1d',
     },
@@ -54,13 +57,14 @@ const useStyles = makeStyles({
 })
 
 function SidebarMui(props) {
+    const userContext  = useContext(UserContext);
     const classes = useStyles();
     const [isOpen, setDrawerOpen ] = useState()
-    const handleOpenUserMenu = () => {}
     const handleCloseNavMenu = () => {}
     const toggleDrawer = () => {
         setDrawerOpen(!isOpen);
     }
+    let nameFromEmail   = userContext?.email.substring(0, userContext?.email.lastIndexOf("@"));
     const drawerClass={paper:classes.drawerBackground}
     return <>
 
@@ -150,6 +154,9 @@ function SidebarMui(props) {
                     >
                         <img className={classes.photo} src={companyLogo}/>
                     </Typography>
+                    <div>
+                        Hi , {nameFromEmail} . Welcome back
+                    </div>
                     <Box sx={{ flexGrow: 0 , marginLeft:'auto' }}>
                         <Link to="/create-account">
                             <Button class="buttonCustom "
@@ -167,6 +174,13 @@ function SidebarMui(props) {
                                 Login
                             </Button>
                         </Link>
+                    </Box>
+                    <Box sx={{flexGrow: 0}}>
+                        <Tooltip title={userContext?.email}>
+                            <IconButton sx={{p: 0 , marginLeft:5}}  >
+                                <Avatar sx={{ bgcolor: '#008CBA' }} src="/static/images/avatar/2.jpg"/>
+                            </IconButton>
+                        </Tooltip>
                     </Box>
                 </Toolbar>
             </Container>

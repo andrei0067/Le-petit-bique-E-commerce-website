@@ -9,7 +9,7 @@ import {
     FormControlLabel,
     Grid,
     Checkbox,
-    IconButton, Divider, Snackbar
+    IconButton, Snackbar,
 } from '@mui/material';
 import {
     onAuthStateChanged,
@@ -21,6 +21,8 @@ import {Link} from 'react-router-dom'
 import SidebarMui from "../../components/SidebarMui";
 import { auth } from '../../config/firebaseConfig';
 import CloseIcon from "@mui/icons-material/Close";
+import consumerComponent from "./consumerComponent";
+
 
 function Login(props) {
     const [user, setUser] = useState(null);
@@ -65,14 +67,12 @@ function Login(props) {
             const createdUser =  await signInWithEmailAndPassword(auth, email, password)
             loginSuccessOpen()
         } catch (errors) {
-            // Tema sa afisati un mesaj ca userul exista Snackbar
             console.log(errors.message);
 
         }
 
     }
 
-    // mutati in firebase si refolositi nevoie ptr ca sa refolositi
     onAuthStateChanged(auth, (currentUser) => {
         setUser(currentUser);
     });
@@ -97,6 +97,9 @@ function Login(props) {
                         message="Logged in successfully"
                         action={actionLoginSuccess}
                     />
+                    <Box>
+                        <consumerComponent label="in interior contextului" />
+                    </Box>
                     <Box
                         sx={{
                             marginTop: 8,
@@ -122,7 +125,9 @@ function Login(props) {
                                 autoFocus
                                 onChange={handleLoginChange('email')}
                             />
-                            <TextField
+
+                                <TextField
+
                                 margin="normal"
                                 required
                                 fullWidth
@@ -133,9 +138,8 @@ function Login(props) {
                                 autoComplete="current-password"
                                 onChange={handleLoginChange('password')}
 
-                            />
+                                />
 
-                            <IconButton onClick={togglePassword}>Show Password</IconButton>
 
                             <FormControlLabel
                                 control={<Checkbox value="remember" color="primary" />}
