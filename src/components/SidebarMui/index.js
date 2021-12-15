@@ -159,7 +159,7 @@ function SidebarMui(props) {
                     </div>
                     <Box sx={{ flexGrow: 0 , marginLeft:'auto' }}>
                         <Link to="/create-account">
-                            <Button class="buttonCustom "
+                            <Button class="buttonCustom"
                                     onClick={handleCloseNavMenu}
                                     sx={{ my: 2, color: 'white', display: 'block' }}
                             >
