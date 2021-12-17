@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {
     Container,
     Box,
@@ -8,10 +8,12 @@ import {
 import { makeStyles } from '@mui/styles';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {useParams, useNavigate } from 'react-router-dom';
+import { collection, getDocs, addDoc } from "firebase/firestore";
+
+import { UserContext } from '../../components/context/UserContext';
 
 import mockData from '../Products/mockData';
-import SidebarMui from "../../components/SidebarMui";
-
+import {database} from "../../config/firebaseConfig";
 
 
 const useStyles = makeStyles({
@@ -22,21 +24,36 @@ const useStyles = makeStyles({
     }
 });
 
-function Product(props) {
+
+function Product() {
     const params = useParams()
     const { id } = params;
     const navigate = useNavigate();
     const classes = useStyles();
+    const [products, setProducts] = useState([])
 
     const car = mockData.find(car => car.id.toString() === id.toString());
-    const handleClick = () => {
-        navigate('/products')
+    const handleClick = async () => {
+        await addDoc(collection(database, "products"), {
+            name: "Tokyo",
+            quantity: 34
+        });
+        // navigate('/products')
     }
 
+    useEffect( () => {
+        const fetchData = async () => {
+            const productsSnapshot = await getDocs(collection(database, 'products'));
+            productsSnapshot.forEach((doc) =>{
+                setProducts([...products, doc.data()])
+            })
+        }
+
+        return fetchData();
+    },[])
 
     return (
         <Container component="main" maxWidth="sm">
-            <SidebarMui/>
             <Box mt={2}>
                 <Button
                     className={classes.backButton}
@@ -74,7 +91,25 @@ function Product(props) {
                     <Typography variant="caption" component="span">Price:</Typography>
                     {Math.random(900).toFixed(2)} {car.price}
                 </Typography>
+                <UserContext.Consumer>
+                    {user => {
+                        return <div>
+                            {user?.email}
+                        </div>
+                    }}
+                </UserContext.Consumer>
             </Box>
+            <Button
+                className={classes.backButton}
+                onClick={handleClick}
+                variant="outlined"
+            ><ArrowBackIcon fontSize="small" />Products</Button>
+            {products.map(product => (
+                    <div key={product.quantity}>
+                        {product.name}
+                    </div>
+                )
+            )}
         </Container>
     )
 }

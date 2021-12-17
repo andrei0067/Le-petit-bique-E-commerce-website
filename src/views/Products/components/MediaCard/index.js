@@ -23,8 +23,8 @@ const useStyles = makeStyles({
 export default function MediaCard(props) {
 
     const classes = useStyles();
-    const { car, to } = props;
-    const { url, model, maker, year, price, color, vin, id } = car;
+    const { post, to } = props;
+    const { body, id, title } = post;
     return (
         <Card className={classes.mediaCard}>
             <CardMedia
@@ -35,13 +35,13 @@ export default function MediaCard(props) {
             />
             <CardContent>
                 <Typography gutterBottom variant="body2" component="div">
-                    {maker} - {model} / {year}
+                    {title}
                 </Typography>
                 <Typography gutterBottom variant="h3" component="div">
-                    {Math.random(900).toFixed(2)} {price}
+                    {Math.random(900).toFixed(2)}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                    {color} {vin}
+                    {body}
                 </Typography>
             </CardContent>
             <CardActions>
