@@ -3,6 +3,8 @@ import {
     Routes,
     Route,
 } from "react-router-dom";
+import { Provider } from "react-redux";
+import  { store } from './store/store';
 
 import Login from './views/Login';
 import Homepage from './views/Homepage';
@@ -17,21 +19,23 @@ import GlobalWrapper from "./views/GlobalWrapper";
 
 function App() {
     return (
-        <BrowserRouter>
-            <GlobalWrapper>
-                <Routes>
-                        <Route  path="/" element={<Homepage/>} />
-                        <Route path="about" element={<About/>} />
-                        <Route path="home" element={<Homepage/>} />
-                        <Route path="forgot-password" element={<ForgotPassword />} />
-                        <Route path="create-account" element={<CreateAccount />} />
-                        <Route path="login" element={<Login />} />
-                        <Route path="products" element={<Products />} />
-                        <Route path="products/:id" element={<Product />} />
-                        <Route path="*" element={<NotFound />} />
-                </Routes>
-            </GlobalWrapper>
-        </BrowserRouter>
+        <Provider store={store}>
+            <BrowserRouter>
+                <GlobalWrapper>
+                    <Routes>
+                            <Route  path="/" element={<Homepage/>} />
+                            <Route path="about" element={<About/>} />
+                            <Route path="home" element={<Homepage/>} />
+                            <Route path="forgot-password" element={<ForgotPassword />} />
+                            <Route path="create-account" element={<CreateAccount />} />
+                            <Route path="login" element={<Login />} />
+                            <Route path="products" element={<Products />} />
+                            <Route path="products/:id" element={<Product />} />
+                            <Route path="*" element={<NotFound />} />
+                    </Routes>
+                </GlobalWrapper>
+            </BrowserRouter>
+        </Provider>
     );
 }
 
