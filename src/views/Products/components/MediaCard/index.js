@@ -14,8 +14,8 @@ import {
 
 const useStyles = makeStyles({
     mediaCard: {
-        maxWidth: 345,
-        minWidth: 200,
+        maxWidth: 250,
+        minWidth: 250,
         margin: 10,
     }
 })
@@ -23,29 +23,32 @@ const useStyles = makeStyles({
 export default function MediaCard(props) {
 
     const classes = useStyles();
-    const { car, to } = props;
-    const { url, model, maker, year, price, color, vin, id } = car;
+    const { post, to } = props;
+    const { body, id, title , price } = post;
     return (
-        <Card className={classes.mediaCard}>
-            <CardMedia
-                component="img"
-                height="140"
-                image={url}
-                alt={model}
-            />
+        <Card className={classes.mediaCard} >
+            <Link to='/products/${id}'>
+                <CardMedia
+                    component="img"
+                    image={post.url}
+                    alt={post.model}
+                />
+            </Link>
             <CardContent>
-                <Typography gutterBottom variant="body2" component="div">
-                    {maker} - {model} / {year}
+                <Typography gutterBottom variant="h5" component="div" marginTop={'2px'}>
+                    {title}
                 </Typography>
-                <Typography gutterBottom variant="h3" component="div">
-                    {Math.random(900).toFixed(2)} {price}
+                <Typography variant="body2" color="text.secondary" marginTop={'10px'}>
+                    {body}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
-                    {color} {vin}
+                <Typography gutterBottom variant="body1" component="div" marginTop={'10px'}>
+                    {price}
                 </Typography>
             </CardContent>
+
             <CardActions>
                 <Button
+                    display='flex'
                     to={`/products/${id}`}
                     component={Link}
                     variant="outlined"

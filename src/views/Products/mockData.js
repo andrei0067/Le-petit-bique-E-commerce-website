@@ -1,3 +1,4 @@
+/*
 export default [{"id":1,"maker":"Mitsubishi","model":"Endeavor","year":2011,"vin":"2T1KU4EE6BC754683","price":"AZN","url":"http://dummyimage.com/600x400.png/5fa2dd/ffffff","color":"Fuscia"},
     {"id":2,"maker":"GMC","model":"Savana 2500","year":2009,"vin":"1G6AX5S35F0843000","price":"CNY","url":"http://dummyimage.com/600x400.png/5fa2dd/ffffff","color":"Crimson"},
     {"id":3,"maker":"Chevrolet","model":"Corvette","year":1962,"vin":"3GYFNJE64BS906379","price":"HNL","url":"http://dummyimage.com/600x400.png/ff4444/ffffff","color":"Turquoise"},
@@ -48,3 +49,4 @@ export default [{"id":1,"maker":"Mitsubishi","model":"Endeavor","year":2011,"vin
     {"id":48,"maker":"Ford","model":"Escort ZX2","year":2003,"vin":"WBAGN63544D688025","price":"USD","url":"http://dummyimage.com/600x400.png/dddddd/000000","color":"Violet"},
     {"id":49,"maker":"Toyota","model":"4Runner","year":2009,"vin":"JTHBL5EF5F5449033","price":"IDR","url":"http://dummyimage.com/600x400.png/cc0000/ffffff","color":"Green"},
     {"id":50,"maker":"Lexus","model":"HS","year":2010,"vin":"WBABN53422J637763","price":"CZK","url":"http://dummyimage.com/600x400.png/dddddd/000000","color":"Orange"}]
+*/

@@ -5,6 +5,7 @@ import { auth } from '../../config/firebaseConfig';
 
 import { UserContext} from '../../components/context/UserContext'
 
+
 /**
  * GlobalWrapper
  */
@@ -17,9 +18,9 @@ function GlobalWrapper(props) {
 
     return (
         <>
-                <UserContext.Provider value={authUser}>
-                    {children}
-                </UserContext.Provider>
+            <UserContext.Provider value={authUser}>
+                {children}
+            </UserContext.Provider>
         </>
     )
 

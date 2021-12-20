@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState} from 'react'
 import {
     Container,
     Box,
@@ -7,11 +7,9 @@ import {
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import {useParams, useNavigate } from 'react-router-dom';
-
-import mockData from '../Products/mockData';
+import {useParams, useNavigate, Link} from 'react-router-dom';
+import { UserContext } from '../../components/context/UserContext';
 import SidebarMui from "../../components/SidebarMui";
-
 
 
 const useStyles = makeStyles({
@@ -22,16 +20,23 @@ const useStyles = makeStyles({
     }
 });
 
+
 function Product(props) {
+    const {posts}=props;
     const params = useParams()
     const { id } = params;
     const navigate = useNavigate();
     const classes = useStyles();
+    const [products, setProducts] = useState([])
 
-    const car = mockData.find(car => car.id.toString() === id.toString());
-    const handleClick = () => {
-        navigate('/products')
-    }
+    // const car = mockData.find(car => car.id.toString() === id.toString());
+    /*const handleClick = async () => {
+        await addDoc(collection(database, "products"), {
+            name: "Tokyo",
+            quantity: 34
+        });*/
+    // navigate('/products')
+    /*   }*/
 
 
     return (
@@ -40,7 +45,6 @@ function Product(props) {
             <Box mt={2}>
                 <Button
                     className={classes.backButton}
-                    onClick={handleClick}
                     variant="outlined"
                 ><ArrowBackIcon fontSize="small" />Products</Button>
             </Box>
@@ -53,28 +57,44 @@ function Product(props) {
                 <CardMedia
                     component="img"
                     sx={{ width:600 }}
-                    image={car.url}
-                    alt={`${car.maker}/${car.model}`}
+                    image={products.url}
+                    alt={`${products.maker}/${products.model}`}
                 />
-                <Typography variant="h4" component='h1' gutterBottom>Product {car.maker}/{car.model}</Typography>
-                <Typography component="div" gutterBottom>
-                    <Typography variant="caption" component="span">Year:</Typography>
-                    {car.year}
-                </Typography>
+                <Typography variant="h4" component='h1' gutterBottom>Product {products.maker}/{products.model}</Typography>
                 <Typography component="div" gutterBottom>
                     <Typography variant="caption" component="span">Color:</Typography>
-                    {car.color}
+                    {products.color}
                 </Typography>
                 <Typography component="div" gutterBottom>
                     <Typography variant="caption" component="span">Vin:</Typography>
-                    {car.vin}
+                    {products.vin}
                 </Typography>
 
                 <Typography component="div" variant="h4" gutterBottom>
                     <Typography variant="caption" component="span">Price:</Typography>
-                    {Math.random(900).toFixed(2)} {car.price}
+                    {Math.random(900).toFixed(2)} {products.price}
                 </Typography>
+                <UserContext.Consumer>
+                    {user => {
+                        return <div>
+                            {user?.email}
+                        </div>
+                    }}
+                </UserContext.Consumer>
             </Box>
+            <Link to='/products'>
+                <Button
+                    to={`/products`}
+                    className={classes.backButton}
+                    variant="outlined"
+                ><ArrowBackIcon fontSize="small" />Products</Button>
+            </Link>
+            {products.map(product => (
+                    <div key={product.quantity}>
+                        {product.name}
+                    </div>
+                )
+            )}
         </Container>
     )
 }
