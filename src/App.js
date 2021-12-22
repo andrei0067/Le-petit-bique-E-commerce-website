@@ -15,6 +15,7 @@ import ForgotPassword from "./views/ForgotPassword";
 import CreateAccount from "./views/CreateAccount";
 import About from "./views/About";
 import GlobalWrapper from "./views/GlobalWrapper";
+import Admin from "./views/Admin";
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
                             <Route path="products" element={<Products />} />
                             <Route path="products/:id" element={<Product />} />
                             <Route path="*" element={<NotFound />} />
+                            <Route path="/admin" element={<Admin />} />
                     </Routes>
                 </GlobalWrapper>
             </BrowserRouter>

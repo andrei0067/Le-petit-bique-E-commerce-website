@@ -10,7 +10,7 @@ import {
     Button,
     Typography,
 } from '@mui/material'
-import {deleteDoc} from "firebase/firestore";
+
 
 
 const useStyles = makeStyles({
@@ -21,11 +21,14 @@ const useStyles = makeStyles({
     }
 })
 
-export default function MediaCard(props) {
+export default function MediaCardAdmin(props) {
 
     const classes = useStyles();
-    const { post, to } = props;
+    const { post, to , onDelete } = props;
     const { body, id, title , price } = post;
+    const handleOnDelete=()=>{
+        onDelete(id);
+    }
     return (
         <Card className={classes.mediaCard} >
             <Link to='/products/${id}'>
@@ -55,6 +58,12 @@ export default function MediaCard(props) {
                     variant="outlined"
                     color="primary"
                 >Learn More</Button>
+                <Button
+                    onClick={handleOnDelete}
+                    display='flex'
+                    variant="outlined"
+                    color="primary"
+                >Delete</Button>
             </CardActions>
         </Card>
     );

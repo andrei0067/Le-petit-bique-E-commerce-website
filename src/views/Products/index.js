@@ -8,36 +8,18 @@ import MediaCard from './components/MediaCard';
 import SidebarMui from "../../components/SidebarMui";
 import {collection, getDocs} from "firebase/firestore";
 import {database} from "../../config/firebaseConfig";
+import {getProducts} from "./actions";
+import {connect} from "react-redux";
 
 
 
-function Products() {
+function Products(props) {
+    const {dispatchGetProducts , products}=props;
     const [posts, setPosts] = useState( []);
 
     useEffect( () => {
-        const fetchData = async () => {
-            const productSnapshot= await getDocs(collection(database, 'products'));
-            setPosts(productSnapshot.docs.map((doc) => ({...doc.data() , id: doc.id})))
-        }
-        return fetchData();
+      dispatchGetProducts();
     },[])
-
-
-
-    /*   useEffect(() => {
-           let mounted = true;
-           if(mounted) {
-               getData('https://jsonplaceholder.typicode.com/posts')
-                   .then(data => {
-                       setPosts(data);
-                       console.log(data); // JSON data parsed by `data.json()` call
-                   });
-           }
-           return () => {
-               mounted = false
-           }
-       }, [])
-   */
 
 
 
@@ -58,10 +40,10 @@ function Products() {
                         display: 'flex',
                         flexWrap: 'wrap',
                     }}>
-                    {posts.map(post => {
+                    {products.map(product => {
                         return <MediaCard
-                            key={post.id}
-                            post={post}
+                            key={product.id}
+                            post={product}
 
                         />
                     })}
@@ -72,6 +54,15 @@ function Products() {
     )
 }
 
+const mapStateToProps = state => {
+    return {
+        ...state.products,
+    };
+}
 
+const mapDispatchToProps= {
+    dispatchGetProducts:getProducts,
+}
 
-export default Products;
+export default connect(mapStateToProps, mapDispatchToProps)(Products)
+

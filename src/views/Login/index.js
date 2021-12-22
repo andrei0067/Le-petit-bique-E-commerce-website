@@ -1,4 +1,11 @@
 import React, {useState} from 'react'
+import LoginIcon from '@mui/icons-material/Login';
+import {Link} from 'react-router-dom'
+import SidebarMui from "../../components/SidebarMui";
+import { auth } from '../../config/firebaseConfig';
+import CloseIcon from "@mui/icons-material/Close";
+import consumerComponent from "./consumerComponent";
+import  {useNavigate}  from "react-router-dom";
 import {
     Box,
     TextField,
@@ -16,44 +23,22 @@ import {
     signOut,
     signInWithEmailAndPassword,
 } from 'firebase/auth'
-import LoginIcon from '@mui/icons-material/Login';
-import {Link} from 'react-router-dom'
-import SidebarMui from "../../components/SidebarMui";
-import { auth } from '../../config/firebaseConfig';
-import CloseIcon from "@mui/icons-material/Close";
-import consumerComponent from "./consumerComponent";
+import {createProduct, getProduct} from "../Admin/actions";
+import {connect} from "react-redux";
+import {openSnackbar} from "../SnackbarCustom/actions";
 
 
-function Login() {
+
+function Login(props) {
+
+    const {dispatchOpenSnackbar}=props;
     const [user, setUser] = useState(null);
     const [passwordShown, setPasswordShown] = useState(false);
     const [loginObj, setLoginObj] = useState({});
-    const [loginSuccessSnackbar, setLoginSuccessSnackbar] = useState(false);
+    let navigate = useNavigate();
 
-    const loginSuccessOpen = () => {
-        setLoginSuccessSnackbar(true);
-    };
 
-    const loginSuccessClose = (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
 
-        setLoginSuccessSnackbar(false);
-    };
-
-    const actionLoginSuccess = (
-        <React.Fragment>
-            <IconButton
-                size="small"
-                aria-label="close"
-                color="inherit"
-                onClick={loginSuccessClose}
-            >
-                <CloseIcon fontSize="small" />
-            </IconButton>
-        </React.Fragment>
-    );
 
     const handleLoginChange = type => event => {
         setLoginObj({
@@ -65,8 +50,9 @@ function Login() {
         const { email, password } = loginObj;
         try {
             const createdUser =  await signInWithEmailAndPassword(auth, email, password)
-            loginSuccessOpen()
+            navigate("../products", { replace: true });
         } catch (errors) {
+            dispatchOpenSnackbar('error' , errors.message)
             console.log(errors.message);
 
         }
@@ -90,13 +76,6 @@ function Login() {
         <div>
             <Container component="main" maxWidth="xs">
                 <SidebarMui/>
-                <Snackbar
-                    open={loginSuccessSnackbar}
-                    autoHideDuration={6000}
-                    onClose={loginSuccessClose}
-                    message="Logged in successfully"
-                    action={actionLoginSuccess}
-                />
                 <Box>
                     <consumerComponent label="in interior contextului" />
                 </Box>
@@ -113,7 +92,7 @@ function Login() {
                     <Typography component="h1" variant="h5">
                         Sign in
                     </Typography>
-                    <Box component="form" onClick={handleLoginClick} noValidate sx={{ mt: 1 }}>
+                    <Box component="form" noValidate sx={{ mt: 1 }}>
                         <TextField
                             margin="normal"
                             required
@@ -146,7 +125,7 @@ function Login() {
                             label="Remember me"
                         />
                         <Button
-                            //type="submit"
+                            onClick={handleLoginClick}
                             fullWidth
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}>
@@ -183,4 +162,14 @@ function Login() {
 }
 
 
-export default Login;
+const mapStateToProps = state => {
+    return {
+        ...state.products,
+    };
+}
+
+const mapDispatchToProps= {
+    dispatchOpenSnackbar:openSnackbar
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login)
