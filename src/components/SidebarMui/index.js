@@ -203,7 +203,7 @@ function SidebarMui() {
                         </Link>
                     </Box>
                     <Box sx={{flexGrow: 0}}>
-                        <Tooltip title={userContext?.email}>
+                        <Tooltip title={userContext?.email || ''}>
                             <IconButton sx={{p: 0 , marginLeft:5}}  >
                                 <Avatar sx={{ bgcolor: '#008CBA' }} src="/static/images/avatar/2.jpg"/>
                             </IconButton>

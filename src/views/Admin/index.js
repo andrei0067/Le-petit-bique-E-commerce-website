@@ -10,20 +10,17 @@ import {
     Container,
     Divider,
     FormControlLabel,
-    Grid,
     TextField,
     Typography
 } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import MediaCardAdmin from "./components/MediaCardAdmin";
-import {createProductFbService} from "../../services/firebaseService"
 
 
 
 
 function Admin(props) {
     const [newProduct ,setNewProduct] = useState({})
-    const [newProductStatus , setNewProductStatus]=useState('')
     const {loading, products ,dispatchCreateProduct,dispatchDeleteProduct} =props
 
 
@@ -41,7 +38,6 @@ function Admin(props) {
     }
 
     const handleOnChangeIsInStock = (event,checked) => {
-        console.log(event.target.checked);
         const data={
         ...newProduct,
            isInStock : checked

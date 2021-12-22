@@ -1,10 +1,9 @@
 import {OPEN_SNACKBAR , CLOSE_SNACKBAR} from "./constants"
 
-const initialState ={type : '', message:''};
+const initialState = {type : '', message:'' };
 
 const snackbarReducer = (state = initialState, action) => {
    const {snackbarType , message } = action?.snackbar || {}
-    console.log(action)
     switch(action.type){
         case OPEN_SNACKBAR:
             return {

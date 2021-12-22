@@ -24,14 +24,14 @@ const useStyles = makeStyles({
 export default function MediaCardAdmin(props) {
 
     const classes = useStyles();
-    const { post, to , onDelete } = props;
+    const { post , onDelete } = props;
     const { body, id, title , price } = post;
     const handleOnDelete=()=>{
         onDelete(id);
     }
     return (
         <Card className={classes.mediaCard} >
-            <Link to='/products/${id}'>
+            <Link to={`/products/${id}`}>
                 <CardMedia
                     component="img"
                     image={post.url}

@@ -1,4 +1,4 @@
-import {SET_PRODUCTS ,GET_PRODUCTS , IS_LOADING} from "./constants";
+import {SET_PRODUCTS, IS_LOADING} from "./constants";
 
 
 const initialState={
@@ -20,7 +20,7 @@ const adminReducer = (state = initialState, action) => {
             }
 
         default:
-            return initialState
+            return state
     }
 }
 

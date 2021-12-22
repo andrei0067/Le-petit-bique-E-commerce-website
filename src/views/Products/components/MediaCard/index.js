@@ -10,7 +10,6 @@ import {
     Button,
     Typography,
 } from '@mui/material'
-import {deleteDoc} from "firebase/firestore";
 
 
 const useStyles = makeStyles({
@@ -24,11 +23,11 @@ const useStyles = makeStyles({
 export default function MediaCard(props) {
 
     const classes = useStyles();
-    const { post, to } = props;
+    const { post } = props;
     const { body, id, title , price } = post;
     return (
         <Card className={classes.mediaCard} >
-            <Link to='/products/${id}'>
+            <Link to={`/products/${id}`}>
                 <CardMedia
                     component="img"
                     image={post.url}
