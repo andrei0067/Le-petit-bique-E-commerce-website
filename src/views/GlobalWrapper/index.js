@@ -4,6 +4,7 @@ import {onAuthStateChanged} from 'firebase/auth';
 import { auth } from '../../config/firebaseConfig';
 
 import { UserContext} from '../../components/context/UserContext'
+import SnackbarCustom from "../../views/SnackbarCustom"
 
 /**
  * GlobalWrapper
@@ -17,9 +18,10 @@ function GlobalWrapper(props) {
 
     return (
         <>
-                <UserContext.Provider value={authUser}>
-                    {children}
-                </UserContext.Provider>
+            <SnackbarCustom/>
+            <UserContext.Provider value={authUser}>
+                {children}
+            </UserContext.Provider>
         </>
     )
 

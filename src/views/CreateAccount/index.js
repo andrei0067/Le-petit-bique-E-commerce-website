@@ -26,8 +26,8 @@ import {
 
 const theme = createTheme();
 
+export default function SignUp() {
 
-    export default function SignUp() {
     const [userCreateObj, setUserCreateObj] = useState({});
     const [emailVerifySnackbar, setEmailVerifySnackbar] = useState(false);
     const [emailAlreadyInUseSnackbar, setEmailAlreadyInUseSnackbar] = useState(false);
@@ -67,44 +67,44 @@ const theme = createTheme();
         }
 
         setEmailVerifySnackbar(false);
-        };
+    };
 
     const actionEmailVerify = (
-            <React.Fragment>
-                <IconButton
-                    size="small"
-                    aria-label="close"
-                    color="inherit"
-                    onClick={emailVerifySnackbarClose}
-                >
-                    <CloseIcon fontSize="small" />
-                </IconButton>
-            </React.Fragment>
-        );
+        <React.Fragment>
+            <IconButton
+                size="small"
+                aria-label="close"
+                color="inherit"
+                onClick={emailVerifySnackbarClose}
+            >
+                <CloseIcon fontSize="small" />
+            </IconButton>
+        </React.Fragment>
+    );
     const actionEmailCreatedSuccess = (
-            <React.Fragment>
-                <IconButton
-                    size="small"
-                    aria-label="close"
-                    color="inherit"
-                    onClick={emailCreatedSuccessSnackbarClose}
-                >
-                    <CloseIcon fontSize="small" />
-                </IconButton>
-            </React.Fragment>
-        );
+        <React.Fragment>
+            <IconButton
+                size="small"
+                aria-label="close"
+                color="inherit"
+                onClick={emailCreatedSuccessSnackbarClose}
+            >
+                <CloseIcon fontSize="small" />
+            </IconButton>
+        </React.Fragment>
+    );
     const actionEmailAlreadyInUse = (
-            <React.Fragment>
-                <IconButton
-                    size="small"
-                    aria-label="close"
-                    color="inherit"
-                    onClick={emailAlreadyInUseSnackbarClose}
-                >
-                    <CloseIcon fontSize="small" />
-                </IconButton>
-            </React.Fragment>
-        );
+        <React.Fragment>
+            <IconButton
+                size="small"
+                aria-label="close"
+                color="inherit"
+                onClick={emailAlreadyInUseSnackbarClose}
+            >
+                <CloseIcon fontSize="small" />
+            </IconButton>
+        </React.Fragment>
+    );
 
 
 
@@ -121,7 +121,7 @@ const theme = createTheme();
         try {
             if (validator.isEmail(userCreateObj.email)) {
                 const createdUser = await createUserWithEmailAndPassword(auth, email, password)
-               emailCreatedSuccessSnackbarOpen()
+                emailCreatedSuccessSnackbarOpen()
             }
             else
             {
@@ -203,7 +203,7 @@ const theme = createTheme();
                         </Grid>
                         <Button
                             onClick={handleCreateClick}
-                           // type="submit"
+                            // type="submit"
                             fullWidth
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}

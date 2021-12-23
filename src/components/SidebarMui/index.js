@@ -23,11 +23,38 @@ import {
 import { Menu } from '@mui/icons-material';
 
 const useStyles = makeStyles({
+
+    buttonCustom : {
+        textTransform:'default',
+        backgroundColor: '#008CBA',
+        borderRadius: '8px',
+        borderStyle: 'none',
+        boxSizing: 'border-box',
+        color: '#FFFFFF',
+        cursor: 'pointer',
+        display: 'inline-block',
+        fontSize: '12px',
+        height: '40px',
+        lineHeight: '20px',
+        listStyle: 'none',
+        margin: '5px',
+        outline: 'none',
+        padding: '10px 16px',
+        position: 'relative',
+        textAlign: 'center',
+        textDecoration: 'none',
+        colorTransition: '100ms',
+        verticalAlign: 'baseline',
+        userSelect: 'none',
+        webkitUserSelect: 'none',
+        touchAction: 'manipulation',
+    },
+
     avatarStyle:{
-       color:'#008CBA',
+        color:'#008CBA',
     },
     drawerBackground:{
-      backgroundColor:'#161a1d',
+        backgroundColor:'#161a1d',
     },
     dividerTextColor:{
         color:'#008CBA',
@@ -39,7 +66,7 @@ const useStyles = makeStyles({
         width: "150px",
     },
     drawerCustom:{
-       backgroundColor: 'blue',
+        backgroundColor: 'blue',
     },
     toolbarCustom: {
         backgroundColor: '#161a1d',
@@ -56,7 +83,7 @@ const useStyles = makeStyles({
     }
 })
 
-function SidebarMui(props) {
+function SidebarMui() {
     const userContext  = useContext(UserContext);
     const classes = useStyles();
     const [isOpen, setDrawerOpen ] = useState()
@@ -159,7 +186,7 @@ function SidebarMui(props) {
                     </div>
                     <Box sx={{ flexGrow: 0 , marginLeft:'auto' }}>
                         <Link to="/create-account">
-                            <Button class="buttonCustom"
+                            <Button className={classes.buttonCustom}
                                     onClick={handleCloseNavMenu}
                                     sx={{ my: 2, color: 'white', display: 'block' }}
                             >
@@ -167,7 +194,7 @@ function SidebarMui(props) {
                             </Button>
                         </Link>
                         <Link to="/login">
-                            <Button class="buttonCustom "
+                            <Button className={classes.buttonCustom}
                                     onClick={handleCloseNavMenu}
                                     sx={{ my: 2, color: 'white', display: 'block' }}
                             >
@@ -176,7 +203,7 @@ function SidebarMui(props) {
                         </Link>
                     </Box>
                     <Box sx={{flexGrow: 0}}>
-                        <Tooltip title={userContext?.email}>
+                        <Tooltip title={userContext?.email || ''}>
                             <IconButton sx={{p: 0 , marginLeft:5}}  >
                                 <Avatar sx={{ bgcolor: '#008CBA' }} src="/static/images/avatar/2.jpg"/>
                             </IconButton>
