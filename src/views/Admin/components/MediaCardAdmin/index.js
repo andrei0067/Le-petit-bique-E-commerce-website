@@ -24,7 +24,7 @@ const useStyles = makeStyles({
 export default function MediaCardAdmin(props) {
 
     const classes = useStyles();
-    const { post, to , onDelete } = props;
+    const { post , onDelete } = props;
     const { body, id, title , price } = post;
     const handleOnDelete=()=>{
         onDelete(id);

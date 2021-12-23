@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 
 import {
     Container,
@@ -6,8 +6,6 @@ import {
 } from '@mui/material';
 import MediaCard from './components/MediaCard';
 import SidebarMui from "../../components/SidebarMui";
-import {collection, getDocs} from "firebase/firestore";
-import {database} from "../../config/firebaseConfig";
 import {getProducts} from "./actions";
 import {connect} from "react-redux";
 
@@ -15,8 +13,6 @@ import {connect} from "react-redux";
 
 function Products(props) {
     const {dispatchGetProducts , products}=props;
-    const [posts, setPosts] = useState( []);
-
     useEffect( () => {
       dispatchGetProducts();
     },[])

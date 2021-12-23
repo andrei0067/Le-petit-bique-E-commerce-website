@@ -1,4 +1,4 @@
-import {SET_PRODUCTS,GET_PRODUCTS} from "./constants"
+import {SET_PRODUCTS} from "./constants"
 import {fetchProductsFbService} from "../../services/firebaseService";
 import {IS_LOADING} from "./constants";
 
@@ -6,7 +6,7 @@ export const getProducts = () => {
     return async (dispatch) => {
         dispatch(isLoading(true))
         try {
-            const products = await fetchProductsFbService()
+            const products = await fetchProductsFbService();
             dispatch({
                 type: SET_PRODUCTS,
                 products: products

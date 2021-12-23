@@ -2,7 +2,6 @@ import * as React from 'react';
 import Stack from '@mui/material/Stack';
 import MuiAlert from '@mui/material/Alert';
 import { Snackbar } from "@mui/material";
-import {useEffect} from "react";
 import {connect} from "react-redux";
 import {closeSnackbar} from "./actions"
 
@@ -21,7 +20,7 @@ function SnackbarCustom(props) {
 
     console.log(type , message)
 
-    const handleCloseSnackbar = (event, reason) => {
+    const handleCloseSnackbar = () => {
         dispatchCloseSnackbar();
     };
 

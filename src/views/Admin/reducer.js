@@ -1,4 +1,4 @@
-import {SET_PRODUCTS ,GET_PRODUCTS , IS_LOADING} from "./constants";
+import {SET_PRODUCTS , IS_LOADING} from "./constants";
 
 
 const initialState={
@@ -7,7 +7,7 @@ const initialState={
 };
 
 const adminReducer = (state = initialState, action) => {
-    switch(action.type) {
+    switch (action.type) {
         case SET_PRODUCTS:
             return {
                 ...state,
@@ -20,7 +20,7 @@ const adminReducer = (state = initialState, action) => {
             }
 
         default:
-            return initialState
+            return state
     }
 }
 
