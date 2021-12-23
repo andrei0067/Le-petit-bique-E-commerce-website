@@ -31,7 +31,7 @@ export default function MediaCardAdmin(props) {
     }
     return (
         <Card className={classes.mediaCard} >
-            <Link to='/products/${id}'>
+            <Link to={`/products/${id}`}>
                 <CardMedia
                     component="img"
                     image={post.url}

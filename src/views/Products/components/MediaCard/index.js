@@ -23,7 +23,7 @@ const useStyles = makeStyles({
 export default function MediaCard(props) {
 
     const classes = useStyles();
-    const { post} = props;
+    const { post } = props;
     const { body, id, title , price } = post;
     return (
         <Card className={classes.mediaCard} >

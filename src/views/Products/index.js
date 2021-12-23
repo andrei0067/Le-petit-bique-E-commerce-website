@@ -13,11 +13,10 @@ import {connect} from "react-redux";
 
 function Products(props) {
     const {dispatchGetProducts , products}=props;
+
     useEffect( () => {
       dispatchGetProducts();
     },[])
-
-
 
     return (
         <Container component="main" maxWidth="lg">

@@ -7,6 +7,4 @@ export default combineReducers({
     admin: adminReducer,
     snackbar: snackbarReducer,
     products: productsReducer
-
-
 })
