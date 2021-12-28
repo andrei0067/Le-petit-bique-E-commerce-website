@@ -1,5 +1,10 @@
 import {SET_PRODUCTS , GET_PRODUCTS , IS_LOADING} from"./constants"
-import {createProductFbService, fetchProductsFbService , deleteProductFbService} from "../../services/firebaseService";
+import {
+    createProductFbService,
+    fetchProductsFbService,
+    deleteProductFbService,
+    uploadPhotoFbService
+} from "../../services/firebaseService";
 import  {openSnackbar} from "../SnackbarCustom/actions"
 
 export const getProduct = () => {
@@ -42,11 +47,17 @@ export const createProduct = (product) => {
    return async(dispatch) => {
        dispatch(isLoading(true))
        try{
-           await createProductFbService(product);
+           const productImage=product.image
+           delete product.image
+           const productId=await createProductFbService(product);
+           if(productId && productImage){
+               await uploadPhotoFbService(productId , productImage )
+           }
            dispatch(getProduct())
            dispatch(openSnackbar('success','S-a creat produsul cu succes'))
        }
        catch(errors) {
+
            dispatch(openSnackbar('errors' , errors.message))
            console.log(errors)
        }

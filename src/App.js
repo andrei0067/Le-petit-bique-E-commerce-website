@@ -16,6 +16,7 @@ import CreateAccount from "./views/CreateAccount";
 import About from "./views/About";
 import GlobalWrapper from "./views/GlobalWrapper";
 import Admin from "./views/Admin";
+import Checkout from "./views/Checkout";
 
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
                             <Route path="products/:id" element={<Product />} />
                             <Route path="*" element={<NotFound />} />
                             <Route path="/admin" element={<Admin />} />
+                            <Route path="/checkout" element={<Checkout />} />
                     </Routes>
                 </GlobalWrapper>
             </BrowserRouter>

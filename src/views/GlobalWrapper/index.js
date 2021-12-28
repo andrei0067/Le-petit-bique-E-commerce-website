@@ -3,7 +3,7 @@ import {onAuthStateChanged} from 'firebase/auth';
 
 import { auth } from '../../config/firebaseConfig';
 
-import { UserContext} from '../../components/context/UserContext'
+import { UserContext} from '../../context/UserContext'
 import SnackbarCustom from "../../views/SnackbarCustom"
 
 /**

@@ -6,5 +6,5 @@ import productsReducer from "../views/Products/reducer";
 export default combineReducers({
     admin: adminReducer,
     snackbar: snackbarReducer,
-    products: productsReducer
+    products: productsReducer,
 })

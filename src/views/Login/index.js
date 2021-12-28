@@ -3,7 +3,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import {Link} from 'react-router-dom'
 import SidebarMui from "../../components/SidebarMui";
 import { auth } from '../../config/firebaseConfig';
-import CloseIcon from "@mui/icons-material/Close";
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import consumerComponent from "./consumerComponent";
 import  {useNavigate}  from "react-router-dom";
 import {
@@ -16,17 +16,15 @@ import {
     FormControlLabel,
     Grid,
     Checkbox,
-    IconButton, Snackbar,
+    IconButton, Snackbar, InputAdornment,
 } from '@mui/material';
 import {
     onAuthStateChanged,
     signOut,
     signInWithEmailAndPassword,
 } from 'firebase/auth'
-import {createProduct, getProduct} from "../Admin/actions";
 import {connect} from "react-redux";
 import {openSnackbar} from "../SnackbarCustom/actions";
-
 
 
 function Login(props) {
@@ -36,6 +34,7 @@ function Login(props) {
     const [passwordShown, setPasswordShown] = useState(false);
     const [loginObj, setLoginObj] = useState({});
     let navigate = useNavigate();
+    console.log(dispatchOpenSnackbar)
 
 
 
@@ -74,7 +73,7 @@ function Login(props) {
 
     return (
         <div>
-            <Container component="main" maxWidth="xs">
+            <Container component="main" maxWidth="xs" sx={{ mt: 15}}>
                 <SidebarMui/>
                 <Box>
                     <consumerComponent label="in interior contextului" />
@@ -104,22 +103,27 @@ function Login(props) {
                             autoFocus
                             onChange={handleLoginChange('email')}
                         />
+                            <TextField
+                                margin="normal"
+                                required
+                                fullWidth
+                                name="password"
+                                label="Password"
+                                type={passwordShown ? "text" : "password"}
+                                id="password"
+                                autoComplete="current-password"
+                                onChange={handleLoginChange('password')}
+                                InputProps={{
+                                    endAdornment: (
+                                        <InputAdornment>
+                                            <IconButton>
+                                                <VisibilityIcon onClick={togglePassword} />
+                                            </IconButton>
+                                        </InputAdornment>
+                                    )
+                                }}
 
-                        <TextField
-
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="password"
-                            label="Password"
-                            type={passwordShown ? "text" : "password"}
-                            id="password"
-                            autoComplete="current-password"
-                            onChange={handleLoginChange('password')}
-
-                        />
-
-
+                            />
                         <FormControlLabel
                             control={<Checkbox value="remember" color="primary" />}
                             label="Remember me"

@@ -7,7 +7,6 @@ export const openSnackbar = (snackbarType , message) =>{
     }
 }
 export const closeSnackbar = () =>{
-    debugger;
     return {
         type : CLOSE_SNACKBAR
     }
