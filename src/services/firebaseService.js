@@ -1,11 +1,18 @@
 import {collection, getDocs, addDoc, doc, deleteDoc} from "firebase/firestore";
-import {database} from "../config/firebaseConfig";
+import {database, storage} from "../config/firebaseConfig";
+import {getStorage} from "firebase/storage";
+import {ref, uploadBytes} from "@firebase/storage";
 
 const productCollectionRef = collection(database,"products");
 
 
 export const createProductFbService = async (products) => {
-    return await addDoc(productCollectionRef , products )
+    return await addDoc(productCollectionRef , products ).then(response=>{
+        return response.id
+    }).catch((errors)=>{
+        return ''
+    })
+
 }
 
 export const fetchProductsFbService = async () => {
@@ -20,4 +27,20 @@ export const fetchProductsFbService = async () => {
 export const deleteProductFbService = async (id) =>{
     const productDoc=doc(database , "products" , id);
     await deleteDoc(productDoc);
+}
+
+export const uploadPhotoFbService= async (id , image) => {
+    const storage =  getStorage()
+    const storageRef =  ref(storage, `images/${id}`)
+    const metadata ={
+        contentType : image.type
+    }
+    await uploadBytes(storageRef , image , metadata).then(response=>{
+        console.log(response)
+    }).catch(errors =>{
+        console.log(errors)
+    })
+
+
+
 }

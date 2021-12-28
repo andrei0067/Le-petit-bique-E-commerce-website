@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Link } from'react-router-dom';
 import { makeStyles } from '@mui/styles';
 import {
@@ -9,6 +9,8 @@ import {
     Button,
     Typography,
 } from '@mui/material'
+import Spinner from "../../../../components/Spinner";
+import MediaCardCustom from "../../../../components/MediaCardCustom";
 
 
 
@@ -20,24 +22,22 @@ const useStyles = makeStyles({
     }
 })
 
-export default function MediaCardAdmin(props) {
 
+export default function MediaCardAdmin(props) {
     const {dispatchOpenDialog}=props;
     const classes = useStyles();
-    const { post , onDelete } = props;
+    const {post , onDelete } = props;
     const { body, id, title , price } = post;
     const handleOnDelete=()=>{
         onDelete(id);
     }
+
+
 console.log(dispatchOpenDialog)
     return (
         <Card className={classes.mediaCard} >
             <Link to={`/products/${id}`}>
-                <CardMedia
-                    component="img"
-                    image={post.url}
-                    alt={post.model}
-                />
+                <MediaCardCustom imageId={id}/>
             </Link>
             <CardContent>
                 <Typography gutterBottom variant="h5" component="div" marginTop={'2px'}>

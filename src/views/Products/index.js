@@ -1,5 +1,5 @@
-import React, {useEffect} from 'react';
-
+import React, {useEffect, useState} from 'react';
+import { collection, query, where } from "firebase/firestore";
 import {
     Container,
     Box, Typography,
@@ -8,15 +8,26 @@ import MediaCard from './components/MediaCard';
 import SidebarMui from "../../components/SidebarMui";
 import {getProducts} from "./actions";
 import {connect} from "react-redux";
+import SearchBar from "../../components/SerachBar";
+import {database} from "../../config/firebaseConfig";
+import {DialogAlert} from "../../components/Dialog";
 
 
 
 function Products(props) {
+    const citiesRef = collection(database, "products");
+    const q = query(citiesRef, where("body", "==", "asd"));
+    console.log(q)
     const {dispatchGetProducts , products}=props;
-
+    const [searchValue,setSearchValue]=useState('');
+    const filteredProducts = products.filter(item => item?.body?.includes(searchValue))
     useEffect( () => {
       dispatchGetProducts();
     },[])
+
+    const handleOnChange=(event)=> {
+        setSearchValue(event.target.value)
+    }
 
     return (
         <Container component="main" maxWidth="lg">
@@ -35,7 +46,7 @@ function Products(props) {
                         display: 'flex',
                         flexWrap: 'wrap',
                     }}>
-                    {products.map(product => {
+                    {filteredProducts.map(product => {
                         return <MediaCard
                             key={product.id}
                             post={product}
@@ -43,7 +54,8 @@ function Products(props) {
                         />
                     })}
                 </Box>
-
+                <SearchBar onSearchChange={handleOnChange}/>
+            <DialogAlert/>
             </Box>
         </Container>
     )
