@@ -1,5 +1,5 @@
 import React from 'react';
-import { UserContext} from '../../components/context/UserContext'
+import { UserContext} from '../../context/UserContext'
 
 function consumerComponent(props) {
     const { label } = props;

@@ -8,7 +8,7 @@ import {
 import { makeStyles } from '@mui/styles';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {useParams, useNavigate, Link} from 'react-router-dom';
-import { UserContext } from '../../components/context/UserContext';
+import { UserContext } from '../../context/UserContext';
 import SidebarMui from "../../components/SidebarMui";
 
 

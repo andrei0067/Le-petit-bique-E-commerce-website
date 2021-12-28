@@ -6,7 +6,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import HomeIcon from '@mui/icons-material/Home';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import InfoIcon from '@mui/icons-material/Info';
-import { UserContext } from '../context/UserContext'
+import { UserContext } from '../../context/UserContext'
 import {
     Container,
     Toolbar,
@@ -208,6 +208,14 @@ function SidebarMui() {
                                 <Avatar sx={{ bgcolor: '#008CBA' }} src="/static/images/avatar/2.jpg"/>
                             </IconButton>
                         </Tooltip>
+                        <Link to="/checkout">
+                            <IconButton sx={{p: 0 , marginLeft :2}}  >
+                                <Avatar sx={{ bgcolor: '#008CBA' }}>
+                                    <ShoppingCartIcon />
+                                </Avatar>
+                            </IconButton>
+                        </Link>
+
                     </Box>
                 </Toolbar>
             </Container>

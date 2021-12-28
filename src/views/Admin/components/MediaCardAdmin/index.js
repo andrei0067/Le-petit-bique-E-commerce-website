@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from'react-router-dom';
-
 import { makeStyles } from '@mui/styles';
 import {
     Card,
@@ -23,12 +22,14 @@ const useStyles = makeStyles({
 
 export default function MediaCardAdmin(props) {
 
+    const {dispatchOpenDialog}=props;
     const classes = useStyles();
     const { post , onDelete } = props;
     const { body, id, title , price } = post;
     const handleOnDelete=()=>{
         onDelete(id);
     }
+console.log(dispatchOpenDialog)
     return (
         <Card className={classes.mediaCard} >
             <Link to={`/products/${id}`}>
@@ -52,9 +53,8 @@ export default function MediaCardAdmin(props) {
 
             <CardActions>
                 <Button
+                    onClick={dispatchOpenDialog}
                     display='flex'
-                    to={`/products/${id}`}
-                    component={Link}
                     variant="outlined"
                     color="primary"
                 >Learn More</Button>

@@ -20,14 +20,16 @@ import CloseIcon from '@mui/icons-material/Close';
 import {
     createUserWithEmailAndPassword,
 } from 'firebase/auth'
+import {openSnackbar} from "../SnackbarCustom/actions";
+import {connect} from "react-redux";
 
 
 
 
 const theme = createTheme();
+function SignUp(props) {
 
-export default function SignUp() {
-
+    const {dispatchOpenSnackbar}=props;
     const [userCreateObj, setUserCreateObj] = useState({});
     const [emailVerifySnackbar, setEmailVerifySnackbar] = useState(false);
     const [emailAlreadyInUseSnackbar, setEmailAlreadyInUseSnackbar] = useState(false);
@@ -119,17 +121,11 @@ export default function SignUp() {
 
         const { email, password } = userCreateObj;
         try {
-            if (validator.isEmail(userCreateObj.email)) {
                 const createdUser = await createUserWithEmailAndPassword(auth, email, password)
-                emailCreatedSuccessSnackbarOpen()
-            }
-            else
-            {
-                emailVerifySnackbarOpen()
-            }
+                dispatchOpenSnackbar('success' , 'Contul a fost creat cu success')
+
         } catch (errors) {
-            if (errors.code === 'auth/email-already-in-use')
-                emailAlreadyInUseSnackbarOpen()
+                dispatchOpenSnackbar('error' , errors.message)
         }
     }
 
@@ -137,30 +133,9 @@ export default function SignUp() {
 
 
         <ThemeProvider theme={theme}>
-            <Container component="main" maxWidth="xs">
+            <Container component="main" maxWidth="xs" sx={{mt: 15}}>
                 <SidebarMui/>
                 <CssBaseline />
-                <Snackbar
-                    open={emailVerifySnackbar}
-                    autoHideDuration={6000}
-                    onClose={emailVerifySnackbarClose}
-                    message="The email format is not valid"
-                    action={actionEmailVerify}
-                />
-                <Snackbar
-                    open={emailAlreadyInUseSnackbar}
-                    autoHideDuration={6000}
-                    onClose={emailAlreadyInUseSnackbarClose}
-                    message="This email is already in use"
-                    action={actionEmailAlreadyInUse}
-                />
-                <Snackbar
-                    open={emailCreatedSuccessSnackbar}
-                    autoHideDuration={6000}
-                    onClose={emailAlreadyInUseSnackbarClose}
-                    message="Account created successfully"
-                    action={actionEmailCreatedSuccess}
-                />
                 <Box
                     sx={{
                         marginTop: 8,
@@ -227,3 +202,16 @@ export default function SignUp() {
 
     );
 }
+
+const mapStateToProps = state => {
+    return {
+        ...state.products,
+    };
+}
+
+const mapDispatchToProps= {
+    dispatchOpenSnackbar:openSnackbar
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp)
+
