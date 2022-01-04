@@ -8,7 +8,7 @@ import {
     CardActions,
     CardContent,
     Button,
-    Typography,
+    Typography, Dialog, DialogTitle, DialogContent, DialogActions,
 } from '@mui/material'
 
 
@@ -25,6 +25,7 @@ export default function MediaCard(props) {
     const classes = useStyles();
     const { post } = props;
     const { body, id, title , price } = post;
+
     return (
         <Card className={classes.mediaCard} >
             <Link to={`/products/${id}`}>

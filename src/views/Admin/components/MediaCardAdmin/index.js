@@ -1,17 +1,19 @@
-import React, {useEffect} from 'react';
-import { Link } from'react-router-dom';
-import { makeStyles } from '@mui/styles';
+import React, {useState} from 'react';
+import {Link} from 'react-router-dom';
+import {makeStyles} from '@mui/styles';
 import {
     Card,
     CardMedia,
     CardActions,
     CardContent,
     Button,
-    Typography,
+    Typography, Dialog, DialogTitle, DialogContent, DialogActions, DialogContentText,
 } from '@mui/material'
-import Spinner from "../../../../components/Spinner";
 import MediaCardCustom from "../../../../components/MediaCardCustom";
-
+import DeleteDialog from "../DeleteDialog"
+import LearnMoreModal from "../LearnMoreModal"
+import {DialogButtonCustom} from "../../../../components/DialogButtonCustom";
+import AddProduct from "../AddProduct";
 
 
 const useStyles = makeStyles({
@@ -23,19 +25,39 @@ const useStyles = makeStyles({
 })
 
 
+
 export default function MediaCardAdmin(props) {
-    const {dispatchOpenDialog}=props;
     const classes = useStyles();
-    const {post , onDelete } = props;
-    const { body, id, title , price } = post;
-    const handleOnDelete=()=>{
+    const {post, onDelete ,updateProduct} = props;
+    const {body, id, title, price} = post;
+    const [openDialog, setOpenDialog] = useState(false)
+    const [openModal,setOpenModal] = useState(false)
+
+    console.log("post",post)
+
+    const handleOpenDialog = () => {
+        setOpenDialog(true);
+    };
+
+    const handleCloseDialog = () => {
+        setOpenDialog(false);
+    };
+    const handleOpenModal= () => {
+        setOpenModal(true);
+    };
+
+    const handleCloseModal = () => {
+        setOpenModal(false);
+    };
+
+
+
+    const handleOnDelete = () => {
         onDelete(id);
     }
 
-
-console.log(dispatchOpenDialog)
     return (
-        <Card className={classes.mediaCard} >
+        <Card className={classes.mediaCard}>
             <Link to={`/products/${id}`}>
                 <MediaCardCustom imageId={id}/>
             </Link>
@@ -43,27 +65,47 @@ console.log(dispatchOpenDialog)
                 <Typography gutterBottom variant="h5" component="div" marginTop={'2px'}>
                     {title}
                 </Typography>
-                <Typography variant="body2" color="text.secondary" marginTop={'10px'}>
-                    {body}
-                </Typography>
-                <Typography gutterBottom variant="body1" component="div" marginTop={'10px'}>
-                    {price}
+                <Typography color={"red"}gutterBottom variant="body1" component="div" marginTop={'25px'}>
+                    {price} Lei
                 </Typography>
             </CardContent>
 
             <CardActions>
                 <Button
-                    onClick={dispatchOpenDialog}
+                    onClick={handleOpenModal}
                     display='flex'
                     variant="outlined"
                     color="primary"
                 >Learn More</Button>
+                <LearnMoreModal
+                    open={openModal}
+                    onClose={handleCloseModal}
+                    title={title}
+                    body={body}
+                />
                 <Button
-                    onClick={handleOnDelete}
+                    onClick={handleOpenDialog}
                     display='flex'
                     variant="outlined"
                     color="primary"
-                >Delete</Button>
+                >Delete Product</Button>
+                <DeleteDialog
+                    open={openDialog}
+                    onClose={handleCloseDialog}
+                    onDelete={handleOnDelete}
+                />
+                <DialogButtonCustom
+                    dialogText={"Edit Product"}
+                    confirmLabel={"Save"}
+                    closeLabel={"Close"}
+                    title={"Edit Product"}
+                >
+                    <AddProduct
+                        saveProduct = {updateProduct}
+                        buttonText={"Edit Product"}
+                        post={post}
+                    />
+                </DialogButtonCustom>
             </CardActions>
         </Card>
     );

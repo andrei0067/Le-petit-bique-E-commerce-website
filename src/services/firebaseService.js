@@ -1,4 +1,4 @@
-import {collection, getDocs, addDoc, doc, deleteDoc} from "firebase/firestore";
+import {collection, getDocs, addDoc, doc, deleteDoc , updateDoc} from "firebase/firestore";
 import {database, storage} from "../config/firebaseConfig";
 import {getStorage} from "firebase/storage";
 import {ref, uploadBytes} from "@firebase/storage";
@@ -40,7 +40,10 @@ export const uploadPhotoFbService= async (id , image) => {
     }).catch(errors =>{
         console.log(errors)
     })
-
-
-
+}
+export const updateProductFbService = async (id ,products) => {
+    debugger;
+    const productDoc = doc(database , "products" , id)
+    const newFields = {...products};
+    await updateDoc(productDoc , newFields)
 }

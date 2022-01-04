@@ -4,9 +4,9 @@ import {useState} from "react";
 import {Button, DialogActions, DialogContent, DialogTitle} from "@mui/material";
 import Product from "../../views/Product";
 
-export function DialogAlert(props) {
-    const {children ,onSave , label , confirmLabel , closeLabel , title} = props
-    const [isOpen,setIsOpen] = useState( false)
+export function DialogButtonCustom(props) {
+    const {dialogText, children, onSave, label, confirmLabel, closeLabel, title} = props
+    const [isOpen, setIsOpen] = useState(false)
 
     const handleClickOpen = () => {
         setIsOpen(true);
@@ -18,7 +18,7 @@ export function DialogAlert(props) {
 
     const handleSave = () => {
         setIsOpen(false);
-        if(onSave){
+        if (onSave) {
             onSave();
         }
     };
@@ -29,8 +29,12 @@ export function DialogAlert(props) {
 
     return (
         <>
-            <Button onClick={handleClickOpen}>
-                Dialog
+            <Button
+                onClick={handleClickOpen}
+                display='flex'
+                variant="outlined"
+                color="primary">
+                {dialogText}
             </Button>
             <Dialog
                 open={isOpen}
@@ -58,11 +62,12 @@ export function DialogAlert(props) {
         </>
     );
 }
-DialogAlert.defaultProps={
-    label:'Save',
-    confirmLabel:'Save',
-    cancelLabel:'cancel1',
-    title:'title1'
+
+DialogButtonCustom.defaultProps = {
+    label: 'Save',
+    confirmLabel: 'Save',
+    cancelLabel: 'cancel1',
+    title: 'title1'
 
 
 }

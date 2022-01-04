@@ -1,5 +1,5 @@
 import React from "react"
-import CircleLoader from "react-spinners/CircleLoader"
+import ClimbingBoxLoader from "react-spinners/ClimbingBoxLoader"
 import {makeStyles} from '@mui/styles'
 
 const useStyles = makeStyles({
@@ -19,7 +19,7 @@ export default function Spinner() {
     const classes = useStyles()
     return(
         <div className={classes.parentLoaderClass}>
-            <CircleLoader className={classes.loaderCustom}/>
+            <ClimbingBoxLoader className={classes.loaderCustom}/>
         </div>
     )
 }

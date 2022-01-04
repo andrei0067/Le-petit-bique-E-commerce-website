@@ -10,7 +10,7 @@ import {getProducts} from "./actions";
 import {connect} from "react-redux";
 import SearchBar from "../../components/SerachBar";
 import {database} from "../../config/firebaseConfig";
-import {DialogAlert} from "../../components/Dialog";
+import {DialogButtonCustom} from "../../components/DialogButtonCustom";
 
 
 
@@ -55,7 +55,7 @@ function Products(props) {
                     })}
                 </Box>
                 <SearchBar onSearchChange={handleOnChange}/>
-            <DialogAlert/>
+            <DialogButtonCustom/>
             </Box>
         </Container>
     )

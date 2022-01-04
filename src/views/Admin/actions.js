@@ -3,7 +3,8 @@ import {
     createProductFbService,
     fetchProductsFbService,
     deleteProductFbService,
-    uploadPhotoFbService
+    uploadPhotoFbService,
+    updateProductFbService
 } from "../../services/firebaseService";
 import  {openSnackbar} from "../SnackbarCustom/actions"
 
@@ -43,6 +44,7 @@ export const deleteProduct = (id) => {
     }
 }
 
+
 export const createProduct = (product) => {
    return async(dispatch) => {
        dispatch(isLoading(true))
@@ -63,4 +65,21 @@ export const createProduct = (product) => {
        }
        dispatch(isLoading(false))
    }
+}
+
+export const updateProduct = (product) => {
+    return async (dispatch) => {
+        dispatch(isLoading(true))
+        try {
+            const productId=product.id
+            delete product.id
+            await updateProductFbService(productId ,product);
+            dispatch(getProduct())
+        } catch (errors) {
+            dispatch(openSnackbar('errors', errors.message))
+            console.log(errors)
+        }
+        dispatch(isLoading(false))
+
+    }
 }
