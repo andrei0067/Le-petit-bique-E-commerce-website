@@ -1,5 +1,5 @@
 import {collection, getDocs, addDoc, doc, deleteDoc , updateDoc} from "firebase/firestore";
-import {database, storage} from "../config/firebaseConfig";
+import {database} from "../config/firebaseConfig";
 import {getStorage} from "firebase/storage";
 import {ref, uploadBytes} from "@firebase/storage";
 
@@ -10,7 +10,7 @@ export const createProductFbService = async (products) => {
     return await addDoc(productCollectionRef , products ).then(response=>{
         return response.id
     }).catch((errors)=>{
-        return ''
+        return errors
     })
 
 }
@@ -31,11 +31,12 @@ export const deleteProductFbService = async (id) =>{
 
 export const uploadPhotoFbService= async (id , image) => {
     const storage =  getStorage()
-    const storageRef =  ref(storage, `images/${id}`)
+    debugger;
+    const storageRef =  ref(storage, `images/${id}/${image?.id}`)
     const metadata ={
         contentType : image.type
     }
-    await uploadBytes(storageRef , image , metadata).then(response=>{
+    await uploadBytes(storageRef , image?.file , metadata).then(response=>{
         console.log(response)
     }).catch(errors =>{
         console.log(errors)

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {connect} from "react-redux";
 import {createProduct, deleteProduct, getProduct, updateProduct} from "./actions";
 import SidebarMui from "../../components/SidebarMui";
@@ -44,6 +44,7 @@ function Admin(props) {
 
 
     }
+    console.log("Produsele:",products)
     return (
         <Container component="main" maxWidth="md">
             <SidebarMui/>

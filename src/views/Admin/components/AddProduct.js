@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import {
     Button,
     Checkbox,
@@ -24,27 +25,37 @@ const useStyles = makeStyles({
 function AddProduct(props) {
 
     const {buttonText, post} = props
-    const [image, setImage] = useState({})
     const classes = useStyles();
     const [newProduct, setNewProduct] = useState({})
+    const [imagesArray, setImagesArray] = useState([])
 
 
     const handleChangeImage = e => {
         const {files} = e.target;
-        if (files?.length) {
-            setImage(files[0])
+
+        const filesWithId = {
+            name:files[0].name,
+            size:files[0].size,
+            type:files[0].type,
+            file:files[0],
+            id:uuidv4()
         }
+console.log("testNou",filesWithId)
+        const dataArray = [
+            ...imagesArray,
+            filesWithId,
+        ] ;
 
-
+        setImagesArray(dataArray)
     };
+    console.log("testulSuprem", imagesArray)
 
     const handleCreateProduct = () => {
         const data = {
             ...post,
             ...newProduct,
-            image: image
+            image: imagesArray
         }
-        debugger;
         props.saveProduct(data)
         // dispatchCreateProduct(data);
 
