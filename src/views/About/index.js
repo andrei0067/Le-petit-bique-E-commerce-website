@@ -9,7 +9,7 @@ import Slideshow from "../../components/Slideshow";
 function About() {
 
     return (
-        <Container>
+        <Container style={{marginTop: 80}}>
             <SidebarMui/>
             <Slideshow/>
         </Container>
