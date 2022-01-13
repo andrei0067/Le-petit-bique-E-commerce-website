@@ -3,11 +3,10 @@ import {Link} from 'react-router-dom';
 import {makeStyles} from '@mui/styles';
 import {
     Card,
-    CardMedia,
     CardActions,
     CardContent,
     Button,
-    Typography, Dialog, DialogTitle, DialogContent, DialogActions, DialogContentText,
+    Typography
 } from '@mui/material'
 import MediaCardCustom from "../../../../components/MediaCardCustom";
 import DeleteDialog from "../DeleteDialog"
@@ -29,7 +28,7 @@ const useStyles = makeStyles({
 export default function MediaCardAdmin(props) {
     const classes = useStyles();
     const {post, onDelete ,updateProduct} = props;
-    const {body, id, title, price} = post;
+    const {body, id, title, price , imageIds} = post;
     const [openDialog, setOpenDialog] = useState(false)
     const [openModal,setOpenModal] = useState(false)
 
@@ -59,13 +58,13 @@ export default function MediaCardAdmin(props) {
     return (
         <Card className={classes.mediaCard}>
             <Link to={`/products/${id}`}>
-                <MediaCardCustom imageId={id}/>
+                <MediaCardCustom imageId={imageIds[0]} folderId={id}/>
             </Link>
             <CardContent>
                 <Typography gutterBottom variant="h5" component="div" marginTop={'2px'}>
                     {title}
                 </Typography>
-                <Typography color={"red"}gutterBottom variant="body1" component="div" marginTop={'25px'}>
+                <Typography color={"red"} gutterBottom variant="body1" component="div" marginTop={'25px'}>
                     {price} Lei
                 </Typography>
             </CardContent>

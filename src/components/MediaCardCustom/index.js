@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import { makeStyles } from '@mui/styles';
 import {
     CardMedia,
 } from '@mui/material'
@@ -10,19 +9,20 @@ import {getImage} from "./actions";
 
 
 function MediaCardCustom(props) {
-    const{ imageId }=props
+    const{ imageId , folderId }=props
 
     const [loading, setLoading]=useState(false);
     const [image, setImage]=useState('');
 
     const handleCallback = (url) => {
+        debugger;
         setLoading(false);
         setImage(url);
     }
 
     useEffect(() => {
         setLoading(true)
-      props.dispatchGetImage(imageId , handleCallback);
+      props.dispatchGetImage(imageId , folderId , handleCallback);
     },[] );
 
     if(loading) {
