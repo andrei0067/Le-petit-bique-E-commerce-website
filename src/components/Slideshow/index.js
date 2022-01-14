@@ -38,36 +38,37 @@ const useStyles = makeStyles({
             objectFit: "cover"
         }
     }
+
 });
 export default function Slideshow() {
     const classes = useStyles()
     return (
         <>
-            <Swiper virtual
-                    slidesPerView={1}>
-                <SwiperSlide style={{ listStyle: "none" }}>
-                    <div style={{height: '320px',
+                <Swiper virtual
+                        slidesPerView={1}>
+                    <SwiperSlide style={{ listStyle: "none" }}>
+                        <div style={{height: '320px',
+                            lineHeight: '320px',
+                            background: '#364d79'}}>
+                            Slide 1
+                        </div>
+                    </SwiperSlide>
+                    <SwiperSlide style={{ listStyle: "none" }}><div style={{height: '320px',
                         lineHeight: '320px',
                         background: '#364d79'}}>
-                        Slide 1
-                    </div>
-                </SwiperSlide>
-                <SwiperSlide style={{ listStyle: "none" }}><div style={{height: '320px',
-                    lineHeight: '320px',
-                    background: '#364d79'}}>
-                    Slide 2
-                </div></SwiperSlide>
-                <SwiperSlide style={{ listStyle: "none" }}><div style={{height: '320px',
-                    lineHeight: '320px',
-                    background: '#364d79'}}>
-                    Slide 3
-                </div></SwiperSlide>
-                <SwiperSlide style={{ listStyle: "none"}}><div style={{height: '320px',
-                    lineHeight: '320px',
-                    background: '#364d79'}}>
-                    Slide 4
-                </div></SwiperSlide>
-            </Swiper>
+                        Slide 2
+                    </div></SwiperSlide>
+                    <SwiperSlide style={{ listStyle: "none" }}><div style={{height: '320px',
+                        lineHeight: '320px',
+                        background: '#364d79'}}>
+                        Slide 3
+                    </div></SwiperSlide>
+                    <SwiperSlide style={{ listStyle: "none"}}><div style={{height: '320px',
+                        lineHeight: '320px',
+                        background: '#364d79'}}>
+                        Slide 4
+                    </div></SwiperSlide>
+                </Swiper>
 
         </>
     )
