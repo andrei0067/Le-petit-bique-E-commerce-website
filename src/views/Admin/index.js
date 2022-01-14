@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {connect} from "react-redux";
 import {createProduct, deleteProduct, getProduct, updateProduct} from "./actions";
 import SidebarMui from "../../components/SidebarMui";
@@ -34,7 +34,6 @@ function Admin(props) {
 
     const classes = useStyles();
     const { loading, products, dispatchDeleteProduct , dispatchCreateProduct,dispatchUpdateProduct} = props
-
 
     useEffect(() => {
         props.dispatchGetProducts();
