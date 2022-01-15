@@ -1,6 +1,7 @@
 import React from 'react'
 import {Container} from "@mui/material";
 import SidebarMui from "../../components/SidebarMui";
+import Slideshow from "../../components/Slideshow";
 
 
 
@@ -8,8 +9,9 @@ import SidebarMui from "../../components/SidebarMui";
 function About() {
 
     return (
-        <Container>
+        <Container style={{marginTop: 80}}>
             <SidebarMui/>
+            <Slideshow/>
         </Container>
     )
 

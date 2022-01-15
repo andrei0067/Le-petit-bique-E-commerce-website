@@ -32,6 +32,18 @@ export default function MediaCardAdmin(props) {
     const [openDialog, setOpenDialog] = useState(false)
     const [openModal,setOpenModal] = useState(false)
 
+    const [productsQueue , setProductsQueue] = useState([])
+    const [newProduct , setNewProduct] = useState('')
+
+    const handleAddProductToQueue = (event) => {
+        const productData = {
+            ...productsQueue,
+            newProduct,
+        }
+        setProductsQueue(productData)
+    }
+    console.log("Produsele sunt",productsQueue)
+
     console.log("post",post)
 
     const handleOpenDialog = () => {
@@ -105,6 +117,12 @@ export default function MediaCardAdmin(props) {
                         post={post}
                     />
                 </DialogButtonCustom>
+                <Button
+                    onClick={handleAddProductToQueue}
+                    display='flex'
+                    variant="outlined"
+                    color="primary"
+                >Add to cart</Button>
             </CardActions>
         </Card>
     );
