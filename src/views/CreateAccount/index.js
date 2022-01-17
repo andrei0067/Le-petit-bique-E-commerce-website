@@ -8,14 +8,11 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import {createTheme, ThemeProvider} from '@mui/material/styles';
+import {createTheme} from '@mui/material/styles';
 import BottomCopyright from '../../components/BottomCopyright';
 import {useState} from "react";
-import validator from "validator";
-import SidebarMui from "../../components/SidebarMui";
 import {auth} from '../../config/firebaseConfig';
-import {IconButton, Snackbar} from "@mui/material";
+import {IconButton, InputAdornment} from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
 import {
     createUserWithEmailAndPassword,
@@ -23,7 +20,7 @@ import {
 import {openSnackbar} from "../SnackbarCustom/actions";
 import {connect} from "react-redux";
 import {motion} from "framer-motion";
-
+import VisibilityIcon from "@mui/icons-material/Visibility";
 
 const theme = createTheme();
 
@@ -34,6 +31,7 @@ function SignUp(props) {
     const [emailVerifySnackbar, setEmailVerifySnackbar] = useState(false);
     const [emailAlreadyInUseSnackbar, setEmailAlreadyInUseSnackbar] = useState(false);
     const [emailCreatedSuccessSnackbar, setEmailCreatedSuccessSnackbar] = useState(false);
+    const [passwordShown, setPasswordShown] = useState(false);
 
     const emailCreatedSuccessSnackbarOpen = () => {
         setEmailCreatedSuccessSnackbar(true);
@@ -128,6 +126,10 @@ function SignUp(props) {
         }
     }
 
+    const togglePassword = () => {
+        setPasswordShown(!passwordShown);
+    };
+
     return (
 
         <motion.div
@@ -136,8 +138,6 @@ function SignUp(props) {
             exit={{x: -600, opacity: 0}}
             transition={{duration: 0.5}}
         >
-                <Container component="main" maxWidth="xs" sx={{mt: 15}}>
-                    <SidebarMui/>
                     <CssBaseline/>
                     <Box
                         sx={{
@@ -153,7 +153,7 @@ function SignUp(props) {
                         <Typography component="h1" variant="h5" onClick={handleCreateClick}>
                             Sign up
                         </Typography>
-                        <Box component="form" noValidate sx={{mt: 3}}>
+                        <Box component="form" noValidate sx={{mt: 1}}>
                             <Grid container spacing={2}>
                                 <Grid item xs={12}>
                                     <TextField
@@ -172,10 +172,19 @@ function SignUp(props) {
                                         fullWidth
                                         name="password"
                                         label="Password"
-                                        type="password"
+                                        type={passwordShown ? "text" : "password"}
                                         id="password"
                                         autoComplete="new-password"
                                         onChange={handleCreateChange('password')}
+                                        InputProps={{
+                                            endAdornment: (
+                                                <InputAdornment>
+                                                    <IconButton>
+                                                        <VisibilityIcon onClick={togglePassword}/>
+                                                    </IconButton>
+                                                </InputAdornment>
+                                            )
+                                        }}
                                     />
                                 </Grid>
                             </Grid>
@@ -198,8 +207,6 @@ function SignUp(props) {
                         </Box>
                     </Box>
                     <BottomCopyright sx={{mt: 5}}/>
-                </Container>
-
         </motion.div>
 
     );

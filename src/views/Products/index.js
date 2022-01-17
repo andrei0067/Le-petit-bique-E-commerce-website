@@ -1,17 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import { collection, query, where } from "firebase/firestore";
 import {
-    Container,
     Box, Typography,
 } from '@mui/material';
 import MediaCard from './components/MediaCard';
-import SidebarMui from "../../components/SidebarMui";
 import {getProducts} from "./actions";
 import {connect} from "react-redux";
 import SearchBar from "../../components/SerachBar";
 import {database} from "../../config/firebaseConfig";
 import {DialogButtonCustom} from "../../components/DialogButtonCustom";
-
+import {motion} from "framer-motion";
 
 
 function Products(props) {
@@ -30,8 +28,12 @@ function Products(props) {
     }
 
     return (
-        <Container component="main" maxWidth="lg">
-            <SidebarMui/>
+    <motion.div
+        initial={{x: 600, opacity: 0}}
+        animate={{x: 0, opacity: 1}}
+        exit={{x: -600, opacity: 0}}
+        transition={{duration: 0.5}}
+    >
             <Box
                 sx={{
                     marginTop: 8,
@@ -57,7 +59,7 @@ function Products(props) {
                 <SearchBar onSearchChange={handleOnChange}/>
             <DialogButtonCustom/>
             </Box>
-        </Container>
+    </motion.div>
     )
 }
 

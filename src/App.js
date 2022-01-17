@@ -1,7 +1,7 @@
 import {
     BrowserRouter,
     Routes,
-    Route, useLocation,
+    Route,
 } from "react-router-dom";
 import {Provider} from "react-redux";
 import {store} from './store/store';
@@ -17,7 +17,7 @@ import About from "./views/About";
 import GlobalWrapper from "./views/GlobalWrapper";
 import Admin from "./views/Admin";
 import Checkout from "./views/Checkout";
-import {AnimatePresence , motion} from "framer-motion";
+import {AnimatePresence } from "framer-motion";
 
 
 function App() {
@@ -25,21 +25,20 @@ function App() {
         <Provider store={store}>
             <AnimatePresence exitBeforeEnter>
                 <BrowserRouter>
-                    <GlobalWrapper>
                         <Routes>
-                            <Route path="/" element={<Homepage/>}/>
-                            <Route path="about" element={<About/>}/>
-                            <Route path="home" element={<Homepage/>}/>
-                            <Route path="forgot-password" element={<ForgotPassword/>}/>
-                            <Route path="create-account" element={<CreateAccount/>}/>
-                            <Route path="login" element={<Login/>}/>
-                            <Route path="products" element={<Products/>}/>
-                            <Route path="products/:id" element={<Product/>}/>
-                            <Route path="*" element={<NotFound/>}/>
-                            <Route path="/admin" element={<Admin/>}/>
-                            <Route path="/checkout" element={<Checkout/>}/>
+                            <Route exact path="/" element={<GlobalWrapper/>}>
+                                <Route path="about" element={<About/>}/>
+                                <Route path="home" element={<Homepage/>}/>
+                                <Route path="forgot-password" element={<ForgotPassword/>}/>
+                                <Route path="create-account" element={<CreateAccount/>}/>
+                                <Route path="login" element={<Login/>}/>
+                                <Route path="products" element={<Products/>}/>
+                                <Route path="products/:id" element={<Product/>}/>
+                                <Route path="*" element={<NotFound/>}/>
+                                <Route path="/admin" element={<Admin/>}/>
+                                <Route path="/checkout" element={<Checkout/>}/>
+                            </Route>
                         </Routes>
-                    </GlobalWrapper>
                 </BrowserRouter>
             </AnimatePresence>
         </Provider>

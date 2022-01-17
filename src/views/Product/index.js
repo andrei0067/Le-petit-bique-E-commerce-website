@@ -1,6 +1,5 @@
 import React, { useState} from 'react'
 import {
-    Container,
     Box,
     Typography,
     CardMedia, Button
@@ -9,7 +8,6 @@ import { makeStyles } from '@mui/styles';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {useParams, useNavigate, Link} from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';
-import SidebarMui from "../../components/SidebarMui";
 
 
 const useStyles = makeStyles({
@@ -40,8 +38,7 @@ function Product(props) {
 
 
     return (
-        <Container component="main" maxWidth="sm">
-            <SidebarMui/>
+        <>
             <Box mt={2}>
                 <Button
                     className={classes.backButton}
@@ -95,7 +92,7 @@ function Product(props) {
                     </div>
                 )
             )}
-        </Container>
+        </>
     )
 }
 

@@ -2,6 +2,7 @@ import {Modal} from "@mui/material";
 import React from "react";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import Slideshow from "../../../components/Slideshow";
 
 const style = {
     position: 'absolute',
@@ -15,8 +16,8 @@ const style = {
 };
 
 export default function LearnMoreModal(props) {
-    const {onClose, selectedValue, open } = props;
-    const {title,body} = props;
+    const {onClose, selectedValue, open  , imagesIds , folderId} = props;
+    const {title, body} = props;
 
     const handleClose = () => {
         onClose(selectedValue);
@@ -38,6 +39,9 @@ export default function LearnMoreModal(props) {
                     <Typography id="modal-modal-description" sx={{mt: 2}}>
                         {body}
                     </Typography>
+                    <Slideshow imagesIds ={imagesIds} folderId={folderId}>
+
+                    </Slideshow>
                 </Box>
             </Modal>
         </div>

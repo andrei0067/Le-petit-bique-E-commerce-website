@@ -1,34 +1,18 @@
 import * as React from 'react';
-import CssBaseline from '@mui/material/CssBaseline';
-import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-import Toolbar from '@mui/material/Toolbar';
 import Paper from '@mui/material/Paper';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
-import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { createTheme } from '@mui/material/styles';
 import AddressForm from './adressForm';
 import PaymentForm from './paymentForm';
 import Review from './reviewForm';
-import SidebarMui from "../../components/SidebarMui";
+import {motion} from "framer-motion";
 
-function Copyright() {
-    return (
-        <Typography variant="body2" color="text.secondary" align="center">
-            {'Copyright © '}
-            <Link color="inherit" href="https://mui.com/">
-                Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
 
 const steps = ['Adresa de livrare', 'Detalii despre plata', 'Ultimul pas'];
 
@@ -59,10 +43,13 @@ export default function Checkout() {
     };
 
     return (
-        <ThemeProvider theme={theme}>
-            <CssBaseline />
-           <SidebarMui/>
-            <Container component="main" maxWidth="sm" sx={{ mb: 4 , mt: 15}}>
+    <motion.div
+        initial={{x: 600, opacity: 0}}
+        animate={{x: 0, opacity: 1}}
+        exit={{x: -600, opacity: 0}}
+        transition={{duration: 0.5}}
+    >
+        <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
                 <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
                     <Typography component="h1" variant="h4" align="center">
                         Checkout
@@ -108,8 +95,7 @@ export default function Checkout() {
                         )}
                     </React.Fragment>
                 </Paper>
-                <Copyright />
             </Container>
-        </ThemeProvider>
+    </motion.div>
     );
 }

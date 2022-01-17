@@ -1,23 +1,23 @@
 import React from 'react'
-import {Container} from "@mui/material";
-import SidebarMui from "../../components/SidebarMui";
 import Slideshow from "../../components/Slideshow";
-
-
-
+import {motion} from "framer-motion";
 
 function About() {
 
     return (
-        <Container style={{marginTop: 80}}>
-            <SidebarMui/>
+        <motion.div
+            initial={{x: 600, opacity: 0}}
+            animate={{x: 0, opacity: 1}}
+            exit={{x: -600, opacity: 0}}
+            transition={{duration: 0.5}}
+        >
             <Slideshow/>
-        </Container>
+
+        </motion.div>
     )
 
 
 }
-
 
 
 export default About;
