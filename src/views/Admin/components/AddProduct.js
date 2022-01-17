@@ -48,7 +48,7 @@ console.log("testNou",filesWithId)
 
         setImagesArray(dataArray)
     };
-    console.log("testulSuprem", imagesArray)
+    console.log("Pozele sunt : ", imagesArray)
 
     const handleCreateProduct = () => {
         const data = {

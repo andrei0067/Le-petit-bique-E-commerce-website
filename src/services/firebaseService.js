@@ -31,7 +31,6 @@ export const deleteProductFbService = async (id) =>{
 
 export const uploadPhotoFbService= async (id , image) => {
     const storage =  getStorage()
-    debugger;
     const storageRef =  ref(storage, `images/${id}/${image?.id}`)
     const metadata ={
         contentType : image.type

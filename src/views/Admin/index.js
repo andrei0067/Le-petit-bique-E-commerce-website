@@ -43,7 +43,7 @@ function Admin(props) {
 
 
     }
-    console.log("Produsele:",products)
+    console.log("Produsele sunt :",products)
     return (
         <Container component="main" maxWidth="md">
             <SidebarMui/>
