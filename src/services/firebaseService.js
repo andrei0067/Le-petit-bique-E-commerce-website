@@ -42,7 +42,6 @@ export const uploadPhotoFbService= async (id , image) => {
     })
 }
 export const updateProductFbService = async (id ,products) => {
-    debugger;
     const productDoc = doc(database , "products" , id)
     const newFields = {...products};
     await updateDoc(productDoc , newFields)

@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import Spinner from "../../../components/Spinner";
 import {makeStyles} from '@mui/styles';
+import LearnMoreModal from "./LearnMoreModal";
 
 const useStyles = makeStyles({
     spinnerCss: {
@@ -86,8 +87,10 @@ console.log("testNou",filesWithId)
 
 
     }
+    console.log("addproduct" , imagesArray)
     return (
         <>
+            <LearnMoreModal imagesArray={imagesArray}/>
 
             <TextField
                 margin="normal"

@@ -35,6 +35,7 @@ export default function MediaCardAdmin(props) {
     const [productsQueue , setProductsQueue] = useState([])
     const [newProduct , setNewProduct] = useState('')
 
+    console.log("post pentalog" , post)
     const handleAddProductToQueue = (event) => {
         const productData = {
             ...productsQueue,
@@ -93,6 +94,8 @@ export default function MediaCardAdmin(props) {
                     onClose={handleCloseModal}
                     title={title}
                     body={body}
+                    imagesIds={imageIds}
+                    folderId={id}
                 />
                 <Button
                     onClick={handleOpenDialog}

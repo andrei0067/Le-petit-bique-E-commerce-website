@@ -8,6 +8,7 @@ import SwiperCore, {
     Virtual
 } from "swiper/core";
 import "swiper/swiper-bundle.css";
+import MediaCardCustom from "../MediaCardCustom";
 SwiperCore.use([Navigation, Pagination, Autoplay, Virtual]);
 // import "swiper/swiper-bundle.css";
 
@@ -40,34 +41,20 @@ const useStyles = makeStyles({
     }
 
 });
-export default function Slideshow() {
+export default function Slideshow(props) {
+    const {imagesIds , folderId} = props
     const classes = useStyles()
+    console.log("Imaginile sunt Pentalog: ", imagesIds);
     return (
         <>
                 <Swiper virtual
                         slidesPerView={1}>
-                    <SwiperSlide style={{ listStyle: "none" }}>
-                        <div style={{height: '320px',
-                            lineHeight: '320px',
-                            background: '#364d79'}}>
-                            Slide 1
-                        </div>
-                    </SwiperSlide>
-                    <SwiperSlide style={{ listStyle: "none" }}><div style={{height: '320px',
-                        lineHeight: '320px',
-                        background: '#364d79'}}>
-                        Slide 2
-                    </div></SwiperSlide>
-                    <SwiperSlide style={{ listStyle: "none" }}><div style={{height: '320px',
-                        lineHeight: '320px',
-                        background: '#364d79'}}>
-                        Slide 3
-                    </div></SwiperSlide>
-                    <SwiperSlide style={{ listStyle: "none"}}><div style={{height: '320px',
-                        lineHeight: '320px',
-                        background: '#364d79'}}>
-                        Slide 4
-                    </div></SwiperSlide>
+                    {imagesIds.map(image=>(
+                        <SwiperSlide style={{ listStyle: "none" }} key={image}>
+                            <MediaCardCustom imageId={image} folderId={folderId}/>
+                        </SwiperSlide>
+                        )
+                    )}
                 </Swiper>
 
         </>

@@ -1,11 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from "react-redux";
 import {createProduct, deleteProduct, getProduct, updateProduct} from "./actions";
-import SidebarMui from "../../components/SidebarMui";
 import {
     Avatar,
     Box,
-    Container,
     Divider,
     Grid,
     Typography
@@ -16,6 +14,7 @@ import Spinner from "../../components/Spinner";
 import {makeStyles} from '@mui/styles';
 import {DialogButtonCustom} from "../../components/DialogButtonCustom";
 import AddProduct from "./components/AddProduct";
+import {motion} from "framer-motion";
 
 const useStyles = makeStyles({
     spinnerCss: {
@@ -33,7 +32,7 @@ const useStyles = makeStyles({
 function Admin(props) {
 
     const classes = useStyles();
-    const { loading, products, dispatchDeleteProduct , dispatchCreateProduct,dispatchUpdateProduct} = props
+    const {loading, products, dispatchDeleteProduct, dispatchCreateProduct, dispatchUpdateProduct} = props
 
     useEffect(() => {
         props.dispatchGetProducts();
@@ -43,19 +42,24 @@ function Admin(props) {
 
 
     }
-    console.log("Produsele sunt :",products)
+    console.log("Produsele sunt :", products)
     return (
-        <Container component="main" maxWidth="md">
-            <SidebarMui/>
-            <Box
-                sx={{
-                    flex: 'auto',
-                    marginTop: 8,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    maxWidth: 720,
-                    alignItems: 'center',
-                }}>
+        <motion.div
+            initial={{x: 600, opacity: 0}}
+            animate={{x: 0, opacity: 1}}
+            exit={{x: -600, opacity: 0}}
+            transition={{duration: 0.5}}
+        >
+            <>
+                <Box
+                    sx={{
+                        flex: 'auto',
+                        marginTop: 8,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        maxWidth: 720,
+                        alignItems: 'center',
+                    }}>
                     <Avatar sx={{m: 1, bgcolor: '#008CBA'}}>
                         <AddIcon/>
                     </Avatar>
@@ -73,26 +77,26 @@ function Admin(props) {
                             buttonText={"Add product"}
                         />
                     </DialogButtonCustom>
-            </Box>
-            <Divider/>
-            <Box sx={{mt:5}}>
+                </Box>
                 <Divider/>
-                <Grid container spacing={2}>
-                    {products.map(product => {
-                        return <Grid item xs={12} md={4} key={product?.id}>
-                            <MediaCardAdmin
-                                updateProduct={dispatchUpdateProduct}
-                                post={product}
-                                onDelete={dispatchDeleteProduct}
-                            />
-                        </Grid>
-                    })}
-                </Grid>
+                <Box sx={{mt: 5}}>
+                    <Divider/>
+                    <Grid container spacing={2}>
+                        {products.map(product => {
+                            return <Grid item xs={12} md={4} key={product?.id}>
+                                <MediaCardAdmin
+                                    updateProduct={dispatchUpdateProduct}
+                                    post={product}
+                                    onDelete={dispatchDeleteProduct}
+                                />
+                            </Grid>
+                        })}
+                    </Grid>
 
-            </Box>
-        </Container>
+                </Box>
 
-
+            </>
+        </motion.div>
     )
 }
 
@@ -106,7 +110,7 @@ const mapDispatchToProps = {
     dispatchGetProducts: getProduct,
     dispatchCreateProduct: createProduct,
     dispatchDeleteProduct: deleteProduct,
-    dispatchUpdateProduct : updateProduct
+    dispatchUpdateProduct: updateProduct
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Admin)

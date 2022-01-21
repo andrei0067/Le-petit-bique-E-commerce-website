@@ -15,7 +15,6 @@ function MediaCardCustom(props) {
     const [image, setImage]=useState('');
 
     const handleCallback = (url) => {
-        debugger;
         setLoading(false);
         setImage(url);
     }

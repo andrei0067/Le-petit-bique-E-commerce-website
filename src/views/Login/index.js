@@ -1,10 +1,8 @@
 import React, {useState} from 'react'
 import LoginIcon from '@mui/icons-material/Login';
 import {Link} from 'react-router-dom'
-import SidebarMui from "../../components/SidebarMui";
 import {auth} from '../../config/firebaseConfig';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import consumerComponent from "./consumerComponent";
 import {useNavigate} from "react-router-dom";
 import {motion} from "framer-motion"
 import {
@@ -13,11 +11,10 @@ import {
     Button,
     Avatar,
     Typography,
-    Container,
     FormControlLabel,
     Grid,
     Checkbox,
-    IconButton, Snackbar, InputAdornment,
+    IconButton, InputAdornment,
 } from '@mui/material';
 import {
     onAuthStateChanged,
@@ -26,6 +23,7 @@ import {
 } from 'firebase/auth'
 import {connect} from "react-redux";
 import {openSnackbar} from "../SnackbarCustom/actions";
+import CssBaseline from "@mui/material/CssBaseline";
 
 
 function Login(props) {
@@ -77,28 +75,24 @@ function Login(props) {
             exit={{x: -600, opacity: 0}}
             transition={{duration: 0.5}}
         >
-            <div>
-                <Container component="main" maxWidth="xs" sx={{mt: 15}}>
-                    <SidebarMui/>
-                    <Box>
-                        <consumerComponent label="in interior contextului"/>
-                    </Box>
-                    <Box
-                        sx={{
-                            marginTop: 8,
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                        }}>
-                        <Avatar sx={{m: 1, bgcolor: '#008CBA'}}>
-                            <LoginIcon/>
-                        </Avatar>
-                        <Typography component="h1" variant="h5">
-                            Sign in
-                        </Typography>
-                        <Box component="form" noValidate sx={{mt: 1}}>
+            <CssBaseline/>
+            <Box
+                sx={{
+                    marginTop: 8,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                }}>
+                <Avatar sx={{m: 1, bgcolor: '#008CBA'}}>
+                    <LoginIcon/>
+                </Avatar>
+                <Typography component="h1" variant="h5">
+                    Sign in
+                </Typography>
+                <Box component="form" noValidate sx={{mt:1}}>
+                    <Grid container spacing={2}>
+                        <Grid item xs={12}>
                             <TextField
-                                margin="normal"
                                 required
                                 fullWidth
                                 id="email"
@@ -108,8 +102,9 @@ function Login(props) {
                                 autoFocus
                                 onChange={handleLoginChange('email')}
                             />
+                        </Grid>
+                        <Grid item xs={12}>
                             <TextField
-                                margin="normal"
                                 required
                                 fullWidth
                                 name="password"
@@ -129,42 +124,41 @@ function Login(props) {
                                 }}
 
                             />
-                            <FormControlLabel
-                                control={<Checkbox value="remember" color="primary"/>}
-                                label="Remember me"
-                            />
-                            <Button
-                                onClick={handleLoginClick}
-                                fullWidth
-                                variant="contained"
-                                sx={{mt: 3, mb: 2}}>
-                                Sign In
-                            </Button>
+                        </Grid>
+                    </Grid>
+                    <FormControlLabel
+                        control={<Checkbox value="remember" color="primary"/>}
+                        label="Remember me"
+                    />
+                    <Button
+                        onClick={handleLoginClick}
+                        fullWidth
+                        variant="contained"
+                        sx={{mt: 3, mb: 2}}>
+                        Sign In
+                    </Button>
 
-                            <Grid container>
-                                <Grid item xs>
-                                    <Link to="/forgot-password">
-                                        Forgot password?
-                                    </Link>
-                                </Grid>
-                                <Grid item>
+                    <Grid container justifyContent="flex-end">
+                        <Grid item xs>
+                            <Link to="/forgot-password">
+                                Forgot password?
+                            </Link>
+                        </Grid>
+                        {/*<Grid item>*/}
+                        {/*    /!*<Link to="/create-account" variant="body2">*!/*/}
+                        {/*    /!*    {"Don't have an account? Sign Up"}*!/*/}
+                        {/*    /!*</Link>*!/*/}
+                        {/*</Grid>*/}
+                    </Grid>
+                </Box>
+            </Box>
+            {/*<Box sx={{margin: 10}}>*/}
+            {/*    Auth user: {user?.email}*/}
 
-                                    <Link to="/create-account" variant="body2">
-                                        {"Don't have an account? Sign Up"}
-                                    </Link>
-                                </Grid>
-                            </Grid>
-                        </Box>
-                    </Box>
-                    <Box sx={{margin: 10}}>
-                        Auth user: {user?.email}
-
-                        <Button onClick={handleLogout}>
-                            Log out
-                        </Button>
-                    </Box>
-                </Container>
-            </div>
+            {/*    <Button onClick={handleLogout}>*/}
+            {/*        Log out*/}
+            {/*    </Button>*/}
+            {/*</Box>*/}
         </motion.div>
     )
 
