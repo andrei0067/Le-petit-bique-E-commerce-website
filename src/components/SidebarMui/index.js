@@ -1,12 +1,15 @@
 import React, {useContext, useState} from 'react';
-import { makeStyles } from '@mui/styles';
+import {makeStyles} from '@mui/styles';
 import {Link, NavLink} from "react-router-dom";
 import companyLogo from "./Logo.png";
 import MenuIcon from '@mui/icons-material/Menu';
 import HomeIcon from '@mui/icons-material/Home';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import InfoIcon from '@mui/icons-material/Info';
-import { UserContext } from '../../context/UserContext'
+import {UserContext} from '../../context/UserContext'
+import CartElement from '../CartElement'
+
 import {
     Container,
     Toolbar,
@@ -18,14 +21,24 @@ import {
     Button,
     ListItem,
     ListItemText,
-    Drawer, ListItemIcon, Divider, Tooltip, Avatar,
+    Drawer,
+    ListItemIcon,
+    Divider,
+    Tooltip,
+    Avatar,
+    Dialog,
+    DialogTitle,
+    DialogContentText,
+    DialogContent,
+    DialogActions, Grid,
 } from '@mui/material'
-import { Menu } from '@mui/icons-material';
+import {Menu} from '@mui/icons-material';
+import MediaCardAdmin from "../../views/Admin/components/MediaCardAdmin";
 
 const useStyles = makeStyles({
 
-    buttonCustom : {
-        textTransform:'default',
+    buttonCustom: {
+        textTransform: 'default',
         backgroundColor: '#008CBA',
         borderRadius: '8px',
         borderStyle: 'none',
@@ -50,22 +63,22 @@ const useStyles = makeStyles({
         touchAction: 'manipulation',
     },
 
-    avatarStyle:{
-        color:'#008CBA',
+    avatarStyle: {
+        color: '#008CBA',
     },
-    drawerBackground:{
-        backgroundColor:'#161a1d',
+    drawerBackground: {
+        backgroundColor: '#161a1d',
     },
-    dividerTextColor:{
-        color:'#008CBA',
+    dividerTextColor: {
+        color: '#008CBA',
     },
-    listTextColor:{
-        color:'white',
+    listTextColor: {
+        color: 'white',
     },
     photo: {
         width: "150px",
     },
-    drawerCustom:{
+    drawerCustom: {
         backgroundColor: 'blue',
     },
     toolbarCustom: {
@@ -84,15 +97,35 @@ const useStyles = makeStyles({
 })
 
 function SidebarMui() {
-    const userContext  = useContext(UserContext);
+    const userContext = useContext(UserContext);
     const classes = useStyles();
-    const [isOpen, setDrawerOpen ] = useState()
-    const handleCloseNavMenu = () => {}
+    const [isOpen, setDrawerOpen] = useState()
+    const [cartOpen, setCartOpen] = useState(false);
+    const [productsInSessionStorage , setProductsInSessionStorage] = useState([]);
+    console.log("produse in cccart",productsInSessionStorage)
+
+    const handleCartOpen = () => {
+        let keys = Object.keys(sessionStorage), i = keys.length;
+        let aux = [];
+        while ( i-- ) {
+                aux.push(JSON.parse(sessionStorage.getItem(keys[i])));
+        }
+
+        setProductsInSessionStorage(aux);
+        setCartOpen(true);
+    };
+
+    const handleCartClose = () => {
+        setCartOpen(false);
+    };
+
+    const handleCloseNavMenu = () => {
+    }
     const toggleDrawer = () => {
         setDrawerOpen(!isOpen);
     }
-    let nameFromEmail   = userContext?.email.substring(0, userContext?.email.lastIndexOf("@"));
-    const drawerClass={paper:classes.drawerBackground}
+    let nameFromEmail = userContext?.email.substring(0, userContext?.email.lastIndexOf("@"));
+    const drawerClass = {paper: classes.drawerBackground}
     return <>
 
         <Drawer
@@ -113,10 +146,10 @@ function SidebarMui() {
                     <ListItem
                         button
                         onClick={toggleDrawer}
-                        className={({isActive}) => isActive ? classes.active: ''}
+                        className={({isActive}) => isActive ? classes.active : ''}
                     >
                         <ListItemIcon class={classes.listTextColor}>
-                            <MenuIcon />
+                            <MenuIcon/>
                         </ListItemIcon>
                     </ListItem>
                     <Divider color={'grey'}/>
@@ -124,10 +157,10 @@ function SidebarMui() {
                         button
                         component={NavLink}
                         to="/home"
-                        className={({isActive}) => isActive ? classes.active: ''}
+                        className={({isActive}) => isActive ? classes.active : ''}
                     >
                         <ListItemIcon class={classes.listTextColor}>
-                            <HomeIcon style={{marginRight:'20px'}}/>
+                            <HomeIcon style={{marginRight: '20px'}}/>
                         </ListItemIcon>
                         <ListItemText class={classes.listTextColor} primary="Homepage"/>
                     </ListItem>
@@ -135,24 +168,24 @@ function SidebarMui() {
                         button
                         component={NavLink}
                         to="/products"
-                        className={({isActive}) => isActive ? classes.active: ''}
+                        className={({isActive}) => isActive ? classes.active : ''}
                     >
                         <ListItemIcon class={classes.listTextColor}>
-                            <ShoppingCartIcon style={{marginRight:'20px'}}/>
+                            <ShoppingCartIcon style={{marginRight: '20px'}}/>
                         </ListItemIcon>
 
-                        <ListItemText class={classes.listTextColor} primary="Products" />
+                        <ListItemText class={classes.listTextColor} primary="Products"/>
                     </ListItem>
                     <ListItem
                         button
                         component={NavLink}
                         to="/about"
-                        className={({isActive}) => isActive ? classes.active: ''}
+                        className={({isActive}) => isActive ? classes.active : ''}
                     >
                         <ListItemIcon class={classes.listTextColor}>
-                            <InfoIcon style={{marginRight:'20px'}}/>
+                            <InfoIcon style={{marginRight: '20px'}}/>
                         </ListItemIcon>
-                        <ListItemText class={classes.listTextColor} primary="About" />
+                        <ListItemText class={classes.listTextColor} primary="About"/>
                     </ListItem>
                 </List>
             </Box>
@@ -160,8 +193,8 @@ function SidebarMui() {
         <AppBar classes={{root: classes.toolbarCustom}}>
             <Container maxWidth="xl">
 
-                <Toolbar disableGutters  >
-                    <Box sx={{ mr: 2, flexGrow: { xs: 1, md: 0 }, display: { xs: 'flex'} }}>
+                <Toolbar disableGutters>
+                    <Box sx={{mr: 2, flexGrow: {xs: 1, md: 0}, display: {xs: 'flex'}}}>
                         <IconButton
                             size="large"
                             aria-label="account of current user"
@@ -170,25 +203,25 @@ function SidebarMui() {
                             onClick={toggleDrawer}
                             color="inherit"
                         >
-                            <Menu />
+                            <Menu/>
                         </IconButton>
                     </Box>
                     <Typography
                         variant="h6"
                         noWrap
                         component="div"
-                        sx={{ mr: 3, display: { xs: 'none', md: 'flex' } }}
+                        sx={{mr: 3, display: {xs: 'none', md: 'flex'}}}
                     >
                         <img className={classes.photo} src={companyLogo}/>
                     </Typography>
                     <div>
                         Hi , {nameFromEmail} . Welcome back
                     </div>
-                    <Box sx={{ flexGrow: 0 , marginLeft:'auto' }}>
+                    <Box sx={{flexGrow: 0, marginLeft: 'auto'}}>
                         <Link to="/create-account">
                             <Button className={classes.buttonCustom}
                                     onClick={handleCloseNavMenu}
-                                    sx={{ my: 2, color: 'white', display: 'block' }}
+                                    sx={{my: 2, color: 'white', display: 'block'}}
                             >
                                 Create Account
                             </Button>
@@ -196,30 +229,58 @@ function SidebarMui() {
                         <Link to="/login">
                             <Button className={classes.buttonCustom}
                                     onClick={handleCloseNavMenu}
-                                    sx={{ my: 2, color: 'white', display: 'block' }}
+                                    sx={{my: 2, color: 'white', display: 'block'}}
                             >
                                 Login
                             </Button>
                         </Link>
-                    </Box>
-                    <Box sx={{flexGrow: 0}}>
                         <Tooltip title={userContext?.email || ''}>
-                            <IconButton sx={{p: 0 , marginLeft:5}}  >
-                                <Avatar sx={{ bgcolor: '#008CBA' }} src="/static/images/avatar/2.jpg"/>
+                            <IconButton sx={{p: 0, marginLeft: 5}}>
+                                <Avatar sx={{bgcolor: '#008CBA'}} src="/static/images/avatar/2.jpg"/>
                             </IconButton>
                         </Tooltip>
-                        <Link to="/checkout">
-                            <IconButton sx={{p: 0 , marginLeft :2}}  >
-                                <Avatar sx={{ bgcolor: '#008CBA' }}>
-                                    <ShoppingCartIcon />
-                                </Avatar>
-                            </IconButton>
-                        </Link>
+                    </Box>
+                    <Box sx={{flexGrow: 0}}>
+                        <IconButton sx={{p: 0, marginLeft: 2}} onClick={handleCartOpen}>
+                            <Avatar sx={{bgcolor: '#008CBA'}}>
+                                <ShoppingCartIcon/>
+                            </Avatar>
+                        </IconButton>
+                        <Dialog
+                            open={cartOpen}
+                            onClose={handleCartClose}
+                            aria-labelledby="alert-dialog-title"
+                            aria-describedby="alert-dialog-description"
+                        >
+                            <DialogTitle id="alert-dialog-title">
+                                {"Products :)"}
+                            </DialogTitle>
+                            <DialogContent>
+                                <DialogContentText id="alert-dialog-description">
+                                    {productsInSessionStorage.map(products => {
+                                        return <CartElement
+                                            title={products.title}
+                                            price={products.price}
+                                            img={products.image}
+                                        />
+                                    })}
 
+                                </DialogContentText>
+                            </DialogContent>
+                            <DialogActions>
+                                <Button onClick={handleCartClose}>Close</Button>
+                                <Link to="/checkout">
+                                    <Button onClick={handleCartClose}>
+                                        Checkout
+                                    </Button>
+                                </Link>
+                            </DialogActions>
+                        </Dialog>
                     </Box>
                 </Toolbar>
             </Container>
         </AppBar>
     </>
 }
+
 export default SidebarMui;

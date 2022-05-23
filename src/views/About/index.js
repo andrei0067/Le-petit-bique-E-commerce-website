@@ -11,7 +11,6 @@ function About() {
             exit={{x: -600, opacity: 0}}
             transition={{duration: 0.5}}
         >
-            <Slideshow/>
 
         </motion.div>
     )

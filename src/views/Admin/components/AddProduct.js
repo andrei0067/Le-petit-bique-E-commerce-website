@@ -30,7 +30,6 @@ function AddProduct(props) {
     const [newProduct, setNewProduct] = useState({})
     const [imagesArray, setImagesArray] = useState([])
 
-
     const handleChangeImage = e => {
         const {files} = e.target;
 
