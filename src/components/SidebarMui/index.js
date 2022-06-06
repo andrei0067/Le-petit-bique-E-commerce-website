@@ -30,7 +30,7 @@ import {
     DialogTitle,
     DialogContentText,
     DialogContent,
-    DialogActions, Grid,
+    DialogActions, Grid, Alert,
 } from '@mui/material'
 import {Menu} from '@mui/icons-material';
 import MediaCardAdmin from "../../views/Admin/components/MediaCardAdmin";
@@ -101,6 +101,7 @@ function SidebarMui() {
     const classes = useStyles();
     const [isOpen, setDrawerOpen] = useState()
     const [cartOpen, setCartOpen] = useState(false);
+    const [cartEmptyOpen , setCartEmptyOpen] = useState(false);
     const [productsInSessionStorage , setProductsInSessionStorage] = useState([]);
     console.log("produse in cccart",productsInSessionStorage)
 
@@ -112,7 +113,17 @@ function SidebarMui() {
         }
 
         setProductsInSessionStorage(aux);
-        setCartOpen(true);
+        if(sessionStorage.length > 0)
+        {
+            setCartOpen(true);
+        }
+        else
+        {
+            setCartEmptyOpen(true);
+        }
+    };
+    const handleCartEmptyClose = () => {
+        setCartEmptyOpen(false);
     };
 
     const handleCartClose = () => {
@@ -247,13 +258,25 @@ function SidebarMui() {
                             </Avatar>
                         </IconButton>
                         <Dialog
+                            open={cartEmptyOpen}
+                            onClose={handleCartEmptyClose}
+                            aria-labelledby="alert-dialog-title"
+                            aria-describedby="alert-dialog-description"
+                        >
+                            <DialogContent>
+                                <img src={'https://domelco.com/images/cart-empty.jpg'} />
+                            </DialogContent>
+                        </Dialog>
+                        <Dialog
                             open={cartOpen}
                             onClose={handleCartClose}
                             aria-labelledby="alert-dialog-title"
                             aria-describedby="alert-dialog-description"
                         >
-                            <DialogTitle id="alert-dialog-title">
-                                {"Products :)"}
+                            <DialogTitle
+                                id="alert-dialog-title"
+                            >
+                                <Typography variant="h5" align="center">Products</Typography>
                             </DialogTitle>
                             <DialogContent>
                                 <DialogContentText id="alert-dialog-description">
@@ -261,7 +284,8 @@ function SidebarMui() {
                                         return <CartElement
                                             title={products.title}
                                             price={products.price}
-                                            img={products.image}
+                                            id={products.id}
+                                            folderId={products.imageIds}
                                         />
                                     })}
 

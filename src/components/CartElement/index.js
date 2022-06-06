@@ -10,6 +10,12 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import {Box} from "@mui/material";
 import {makeStyles} from "@mui/styles";
 import {Item} from "semantic-ui-react";
+import {useEffect, useState} from "react";
+import Spinner from "../Spinner";
+import {getDownloadURL, getStorage, ref} from "firebase/storage";
+import {createProduct, deleteProduct, getProduct, updateProduct} from "../../views/Admin/actions";
+import {connect} from "react-redux";
+import {getImage} from "../MediaCardCustom/actions";
 
 const useStyles = makeStyles({
     divCSS: {
@@ -24,11 +30,20 @@ const Img = styled('img')({
     maxHeight: '100%',
 });
 
-
-export default function CartElement(props) {
+    function CartElement(props) {
     const classes = useStyles();
-    const {title , price  , img} = props;
-    console.log("miau", img)
+    const {title , price  , id , folderId} = props;
+    const [image, setImage]=useState('');
+
+        const handleCallback = (url) => {
+            setImage(url);
+        }
+
+        useEffect(() => {
+            props.dispatchGetImage(folderId[0] , id , handleCallback);
+        },[] );
+        console.log("Imaginea din cartElem" , id , folderId[0] )
+
     return (
         <Paper
             sx={{
@@ -40,14 +55,11 @@ export default function CartElement(props) {
                     theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
             }}
         >
-            {/*<Grid item xs container direction="row" justifyContent="space-around" alignItems="end">*/}
-
-            {/*</Grid>*/}
             <Grid container spacing={2}>
                 <Grid item xs={4}>
                     <Item>
                         <ButtonBase sx={{ width: 100, height: 100 }}>
-                            <Img src={img} />
+                            <Img src={image} />
                         </ButtonBase>
                     </Item>
                 </Grid>
@@ -77,3 +89,8 @@ export default function CartElement(props) {
 
     );
 }
+const mapDispatchToProps ={
+    dispatchGetImage : getImage,
+}
+
+export default connect(null , mapDispatchToProps)(CartElement)
