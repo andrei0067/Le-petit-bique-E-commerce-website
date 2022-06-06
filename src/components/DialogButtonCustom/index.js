@@ -33,7 +33,11 @@ export function DialogButtonCustom(props) {
                 onClick={handleClickOpen}
                 display='flex'
                 variant="outlined"
-                color="primary">
+                color="primary"
+                aria-label="delete"
+                size="large"
+                fontSize="inherit"
+            >
                 {dialogText}
             </Button>
             <Dialog

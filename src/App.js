@@ -16,8 +16,8 @@ import CreateAccount from "./views/CreateAccount";
 import About from "./views/About";
 import GlobalWrapper from "./views/GlobalWrapper";
 import Admin from "./views/Admin";
-import Checkout from "./views/Checkout";
 import {AnimatePresence } from "framer-motion";
+import Checkout from "./views/Checkout";
 
 
 function App() {
