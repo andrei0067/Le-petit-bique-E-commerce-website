@@ -1,7 +1,7 @@
 import {
     BrowserRouter,
     Routes,
-    Route,
+    Route, Redirect, Navigate,
 } from "react-router-dom";
 import {Provider} from "react-redux";
 import {store} from './store/store';
@@ -27,6 +27,7 @@ function App() {
                 <BrowserRouter>
                         <Routes>
                             <Route exact path="/" element={<GlobalWrapper/>}>
+                                <Route path="/" element={<Navigate replace to="/home" />} />
                                 <Route path="about" element={<About/>}/>
                                 <Route path="home" element={<Homepage/>}/>
                                 <Route path="forgot-password" element={<ForgotPassword/>}/>

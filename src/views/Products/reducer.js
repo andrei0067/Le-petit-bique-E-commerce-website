@@ -1,4 +1,4 @@
-import {SET_PRODUCTS , IS_LOADING} from "./constants";
+import {SET_PRODUCTS, IS_LOADING} from "./constants";
 
 
 const initialState={
@@ -6,8 +6,8 @@ const initialState={
     loading:false,
 };
 
-const productsReducer = (state = initialState, action) => {
-    switch(action.type) {
+const adminReducer = (state = initialState, action) => {
+    switch (action.type) {
         case SET_PRODUCTS:
             return {
                 ...state,
@@ -24,4 +24,4 @@ const productsReducer = (state = initialState, action) => {
     }
 }
 
-export default productsReducer
+export default adminReducer

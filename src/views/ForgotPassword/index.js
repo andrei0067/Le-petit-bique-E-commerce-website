@@ -46,7 +46,7 @@ function ForgotPassword(props) {
                 <Avatar sx={{m: 1, bgcolor: '#008CBA'}}>
                     <LockIcon/>
                 </Avatar>
-                <Typography component="h1" variant="h5">
+                <Typography component="h1" variant="h5" style={{ textDecoration: 'none' }} >
                     Forgot password
                 </Typography>
                 <Box component="form" onClick={sendResetEmail} noValidate sx={{mt: 1}}>
