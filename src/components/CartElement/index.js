@@ -9,7 +9,7 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import DeleteIcon from '@mui/icons-material/Delete';
 import {makeStyles} from "@mui/styles";
 import {Item} from "semantic-ui-react";
-import {useEffect, useState} from "react";
+import {useEffect, useReducer, useState} from "react";
 import {connect} from "react-redux";
 import {getImage} from "../MediaCardCustom/actions";
 import {IconButton} from "@mui/material";
@@ -38,7 +38,7 @@ function CartElement(props) {
     }
     const handleDeleteItem = () => {
         sessionStorage.removeItem(id);
-
+        window.location.reload();
     }
 
     useEffect(() => {
@@ -81,12 +81,10 @@ function CartElement(props) {
                         </Grid>
                         <Grid container marginTop={'20px'}>
                             <Grid item xs={8}>
-                                <RemoveIcon/>
-                                <AddIcon/>
                             </Grid>
                             <Grid item xs={4}>
-                                <Typography variant="subtitle1" component="div" align='right' alignSelf="flex-end"
-                                            color='blue'>
+                                <Typography fontWeight="bold" variant="subtitle1" component="div" align='right' alignSelf="flex-end"
+                                            color='red'>
                                     {price} Lei
                                 </Typography>
                             </Grid>

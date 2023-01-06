@@ -2,10 +2,11 @@ import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
+import {useState} from "react";
 
-export default function PaymentForm() {
+export default function PaymentForm(props) {
+    const {formData , setFormData} = props
+
     return (
         <React.Fragment>
             <Typography variant="h6" gutterBottom>
@@ -15,48 +16,59 @@ export default function PaymentForm() {
                 <Grid item xs={12} md={6}>
                     <TextField
                         required
-                        id="cardName"
-                        label="Name on card"
+                        id="nameOnCard"
+                        name="nameOnCard"
+                        label="Numele pe card"
                         fullWidth
-                        autoComplete="cc-name"
+                        autoComplete="given-name"
                         variant="standard"
+                        value={formData.nameOnCard}
+                        onChange={(event) =>
+                            setFormData({...formData , nameOnCard: event.target.value})
+                        }
                     />
                 </Grid>
                 <Grid item xs={12} md={6}>
                     <TextField
                         required
                         id="cardNumber"
-                        label="Card number"
+                        name="cardNumber"
+                        label="Numarul cardului"
                         fullWidth
-                        autoComplete="cc-number"
                         variant="standard"
+                        value={formData.cardNumber}
+                        onChange={(event) =>
+                            setFormData({...formData , cardNumber: event.target.value})
+                        }
                     />
                 </Grid>
                 <Grid item xs={12} md={6}>
                     <TextField
                         required
                         id="expDate"
-                        label="Expiry date"
+                        name="expDate"
+                        label="Data expirarii"
                         fullWidth
-                        autoComplete="cc-exp"
                         variant="standard"
+                        value={formData.expDate}
+                        onChange={(event) =>
+                            setFormData({...formData , expDate: event.target.value})
+                        }
                     />
                 </Grid>
                 <Grid item xs={12} md={6}>
                     <TextField
                         required
-                        id="cvv"
+                        id="securityNumber"
+                        name="securityNumber"
                         label="CVV"
                         helperText="Last three digits on signature strip"
                         fullWidth
-                        autoComplete="cc-csc"
                         variant="standard"
-                    />
-                </Grid>
-                <Grid item xs={12}>
-                    <FormControlLabel
-                        control={<Checkbox color="secondary" name="saveCard" value="yes" />}
-                        label="Remember credit card details for next time"
+                        value={formData.securityNumber}
+                        onChange={(event) =>
+                            setFormData({...formData , securityNumber: event.target.value})
+                        }
                     />
                 </Grid>
             </Grid>

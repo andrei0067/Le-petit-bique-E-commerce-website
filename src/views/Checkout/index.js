@@ -7,32 +7,43 @@ import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { createTheme } from '@mui/material/styles';
 import AddressForm from './adressForm';
 import PaymentForm from './paymentForm';
 import Review from './reviewForm';
 import {motion} from "framer-motion";
+import {useState} from "react";
 
 
 const steps = ['Adresa de livrare', 'Detalii despre plata', 'Ultimul pas'];
 
-function getStepContent(step) {
-    switch (step) {
-        case 0:
-            return <AddressForm />;
-        case 1:
-            return <PaymentForm />;
-        case 2:
-            return <Review />;
-        default:
-            throw new Error('Unknown step');
-    }
-}
-
-const theme = createTheme();
 
 export default function Checkout() {
-    const [activeStep, setActiveStep] = React.useState(0);
+
+    const [activeStep, setActiveStep] =useState(0);
+    const [formData , setFormData] = useState({
+        firstName:"",
+        lastName:"",
+        address:"",
+        nameOnCard:"",
+        cardNumber:"",
+        expDate:"",
+        securityNumber:"",
+    })
+
+    console.log(formData)
+    function getStepContent(step) {
+        switch (step) {
+            case 0:
+                return <AddressForm formData={formData} setFormData={setFormData}/>;
+            case 1:
+                return <PaymentForm formData={formData} setFormData={setFormData} />;
+            case 2:
+                return <Review formData={formData}/>;
+            default:
+                throw new Error('Unknown step');
+        }
+    }
+
 
     const handleNext = () => {
         setActiveStep(activeStep + 1);

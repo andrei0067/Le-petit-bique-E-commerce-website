@@ -16,7 +16,7 @@ export default function BasicMenu() {
 
     return (
         <div>
-            <Button class="buttonCustom"
+            <Button className="buttonCustom"
 
                     id="basic-button"
                 aria-controls="basic-menu"

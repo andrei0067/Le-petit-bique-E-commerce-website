@@ -22,7 +22,6 @@ import {connect} from "react-redux";
 import {motion} from "framer-motion";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 
-const theme = createTheme();
 
 function SignUp(props) {
 

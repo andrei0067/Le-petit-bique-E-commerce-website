@@ -1,8 +1,6 @@
 import React from 'react'
 import Particles from "react-tsparticles";
-
 function Background() {
-
     return (
         <Particles
             params={{
@@ -10,14 +8,14 @@ function Background() {
                 "autoPlay": true,
                 "background": {
                     "color": {
-                        "value": "#fff"
+                        "value": "#ffffff"
                     },
                 },
                 "fullScreen": {
                     "enable": true,
-                    "zIndex": 1
+                    "zIndex": -1
                 },
-                "fpsLimit": 120,
+                "fpsLimit": 60,
                 "particles": {
                     "move": {
                         "angle": {
@@ -174,7 +172,6 @@ function Background() {
                 },
 
             }}/>
-
     )
 
 

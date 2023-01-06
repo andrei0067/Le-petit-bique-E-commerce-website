@@ -8,7 +8,6 @@ import SnackbarCustom from "../../views/SnackbarCustom"
 import {Outlet} from "react-router-dom";
 import SidebarMui from "../../components/SidebarMui";
 import {Container} from "@mui/material";
-import Homepage from "../Homepage";
 
 /**
  * GlobalWrapper
