@@ -5,10 +5,15 @@ import companyLogo from "./Logo.png";
 import MenuIcon from '@mui/icons-material/Menu';
 import HomeIcon from '@mui/icons-material/Home';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import InfoIcon from '@mui/icons-material/Info';
 import {UserContext} from '../../context/UserContext'
 import CartElement from '../CartElement'
+import MenuAccount from'../MenuAccount'
+import {
+    onAuthStateChanged,
+    signOut,
+} from 'firebase/auth'
+import { auth } from '../../config/firebaseConfig';
 
 import {
     Container,
@@ -30,10 +35,9 @@ import {
     DialogTitle,
     DialogContentText,
     DialogContent,
-    DialogActions, Grid,
+    DialogActions, Grid, Alert,
 } from '@mui/material'
 import {Menu} from '@mui/icons-material';
-import MediaCardAdmin from "../../views/Admin/components/MediaCardAdmin";
 
 const useStyles = makeStyles({
 
@@ -98,11 +102,25 @@ const useStyles = makeStyles({
 
 function SidebarMui() {
     const userContext = useContext(UserContext);
+    const [user, setUser] = useState(null);
     const classes = useStyles();
     const [isOpen, setDrawerOpen] = useState()
     const [cartOpen, setCartOpen] = useState(false);
+    const [cartEmptyOpen , setCartEmptyOpen] = useState(false);
     const [productsInSessionStorage , setProductsInSessionStorage] = useState([]);
+
     console.log("produse in cccart",productsInSessionStorage)
+    console.log("userContext in sidebar" ,userContext?.email )
+    // onAuthStateChanged(auth, (currentUser) => {
+    //     setUser(currentUser);
+    //  });
+    //
+    // const handleLogout = () => {
+    //     window.location.reload(false);
+    //     signOut(auth);
+    //
+    // }
+
 
     const handleCartOpen = () => {
         let keys = Object.keys(sessionStorage), i = keys.length;
@@ -112,7 +130,17 @@ function SidebarMui() {
         }
 
         setProductsInSessionStorage(aux);
-        setCartOpen(true);
+        if(sessionStorage.length > 0)
+        {
+            setCartOpen(true);
+        }
+        else
+        {
+            setCartEmptyOpen(true);
+        }
+    };
+    const handleCartEmptyClose = () => {
+        setCartEmptyOpen(false);
     };
 
     const handleCartClose = () => {
@@ -124,7 +152,10 @@ function SidebarMui() {
     const toggleDrawer = () => {
         setDrawerOpen(!isOpen);
     }
+
+
     let nameFromEmail = userContext?.email.substring(0, userContext?.email.lastIndexOf("@"));
+
     const drawerClass = {paper: classes.drawerBackground}
     return <>
 
@@ -214,9 +245,17 @@ function SidebarMui() {
                     >
                         <img className={classes.photo} src={companyLogo}/>
                     </Typography>
-                    <div>
-                        Hi , {nameFromEmail} . Welcome back
-                    </div>
+                   <div>
+                       {/*{user?.email ? (*/}
+                       {/*    <div>Welcome {nameFromEmail} . Enjoy your stay </div>*/}
+                       {/*) : (*/}
+                       {/*    <div>Welcome guest . Enjoy your stay</div>*/}
+                       {/*)}*/}
+                       {/*<Button onClick={handleLogout}>*/}
+                       {/*    Log out*/}
+                       {/*</Button>*/}
+                   </div>
+                   {/*{isLoggedIn ? <div>  Hi , {nameFromEmail} . Welcome back</div>  : <div> Hi , guest . Welcome back</div>}*/}
                     <Box sx={{flexGrow: 0, marginLeft: 'auto'}}>
                         <Link to="/create-account">
                             <Button className={classes.buttonCustom}
@@ -234,12 +273,13 @@ function SidebarMui() {
                                 Login
                             </Button>
                         </Link>
-                        <Tooltip title={userContext?.email || ''}>
-                            <IconButton sx={{p: 0, marginLeft: 5}}>
-                                <Avatar sx={{bgcolor: '#008CBA'}} src="/static/images/avatar/2.jpg"/>
-                            </IconButton>
-                        </Tooltip>
-                    </Box>
+                        <MenuAccount/>
+                        {/*<Tooltip title={userContext?.email || ''}>*/}
+                        {/*    <IconButton sx={{p: 0, marginLeft: 5}}>*/}
+                        {/*        <Avatar sx={{bgcolor: '#008CBA'}} src="/static/images/avatar/2.jpg"/>*/}
+                        {/*    </IconButton>*/}
+                        {/*</Tooltip>*/}
+                     </Box>
                     <Box sx={{flexGrow: 0}}>
                         <IconButton sx={{p: 0, marginLeft: 2}} onClick={handleCartOpen}>
                             <Avatar sx={{bgcolor: '#008CBA'}}>
@@ -247,13 +287,25 @@ function SidebarMui() {
                             </Avatar>
                         </IconButton>
                         <Dialog
+                            open={cartEmptyOpen}
+                            onClose={handleCartEmptyClose}
+                            aria-labelledby="alert-dialog-title"
+                            aria-describedby="alert-dialog-description"
+                        >
+                            <DialogContent>
+                                <img src={'https://domelco.com/images/cart-empty.jpg'} />
+                            </DialogContent>
+                        </Dialog>
+                        <Dialog
                             open={cartOpen}
                             onClose={handleCartClose}
                             aria-labelledby="alert-dialog-title"
                             aria-describedby="alert-dialog-description"
                         >
-                            <DialogTitle id="alert-dialog-title">
-                                {"Products :)"}
+                            <DialogTitle
+                                id="alert-dialog-title"
+                            >
+                                <Typography variant="h5" align="center">Products</Typography>
                             </DialogTitle>
                             <DialogContent>
                                 <DialogContentText id="alert-dialog-description">
@@ -261,7 +313,8 @@ function SidebarMui() {
                                         return <CartElement
                                             title={products.title}
                                             price={products.price}
-                                            img={products.image}
+                                            id={products.id}
+                                            folderId={products.imageIds}
                                         />
                                     })}
 

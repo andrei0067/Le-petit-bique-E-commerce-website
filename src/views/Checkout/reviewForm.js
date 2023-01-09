@@ -4,8 +4,9 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Grid from '@mui/material/Grid';
+import {useState} from "react";
 
-const products = [
+/*const products = [
     {
         name: 'Product 1',
         desc: 'A nice thing',
@@ -29,58 +30,96 @@ const products = [
     { name: 'Shipping', desc: '', price: 'Free' },
 ];
 
-const addresses = ['1 MUI Drive', 'Reactville', 'Anytown', '99999', 'USA'];
+*/
 const payments = [
-    { name: 'Card type', detail: 'Visa' },
-    { name: 'Card holder', detail: 'Mr John Smith' },
-    { name: 'Card number', detail: 'xxxx-xxxx-xxxx-1234' },
-    { name: 'Expiry date', detail: '04/2024' },
+    { name: 'Card type' },
+    { name: 'Card holder' },
+    { name: 'Card number' },
+    { name: 'Expiry date'},
 ];
 
-export default function Review() {
+
+
+
+
+
+export default function Review(props) {
+    const {formData} = props
+    const censoredCard = formData.cardNumber;
+    const last4Str = String(censoredCard).slice(-2);
+    let total = 0 ;
+
+    let sessionStorageData = [],
+        keys = Object.keys(sessionStorage),
+        i = keys.length;
+
+    while ( i-- ) {
+        sessionStorageData.push( JSON.parse(sessionStorage.getItem(keys[i])) );
+    }
+
+    sessionStorageData.forEach(item => {
+        total = total + Number(item.price) ;
+    })
+
+
+    console.log("ajsdhajksd",sessionStorageData)
+    console.log("formData = " , formData)
+    console.log("Totaluuuuuuuuuuuuuuuuuuuuuuuuuuuuuu card",total)
     return (
         <React.Fragment>
             <Typography variant="h6" gutterBottom>
                 Order summary
             </Typography>
             <List disablePadding>
-                {products.map((product) => (
-                    <ListItem key={product.name} sx={{ py: 1, px: 0 }}>
-                        <ListItemText primary={product.name} secondary={product.desc} />
-                        <Typography variant="body2">{product.price}</Typography>
+                 {sessionStorageData.map((product) => (
+                    <ListItem key={product.title} sx={{ py: 1, px: 0 }}>
+                        <ListItemText primary={product.title} />
+                        <Typography variant="body2">{product.price}L</Typography>
                     </ListItem>
                 ))}
+
 
                 <ListItem sx={{ py: 1, px: 0 }}>
                     <ListItemText primary="Total" />
                     <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-                        $34.06
+                        {total} Lei
                     </Typography>
                 </ListItem>
             </List>
             <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
                     <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
-                        Shipping
+                        Livrarea
                     </Typography>
-                    <Typography gutterBottom>John Smith</Typography>
-                    <Typography gutterBottom>{addresses.join(', ')}</Typography>
+                    <Typography gutterBottom>{formData.firstName} {formData.lastName}</Typography>
+                      <Typography gutterBottom>{formData.address}</Typography>
                 </Grid>
                 <Grid item container direction="column" xs={12} sm={6}>
                     <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
-                        Payment details
+                        Detalii despre plata
                     </Typography>
-                    <Grid container>
-                        {payments.map((payment) => (
-                            <React.Fragment key={payment.name}>
+                       <Grid container>
+                            <React.Fragment>
                                 <Grid item xs={6}>
-                                    <Typography gutterBottom>{payment.name}</Typography>
+                                    <Typography gutterBottom>Card Holder</Typography>
                                 </Grid>
                                 <Grid item xs={6}>
-                                    <Typography gutterBottom>{payment.detail}</Typography>
+                                    <Typography gutterBottom>{formData.firstName} {formData.lastName}</Typography>
                                 </Grid>
+                                <Grid item xs={6}>
+                                    <Typography gutterBottom>Card Number</Typography>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <Typography gutterBottom>xxxx-xxxx-xxxx-xx{last4Str}</Typography>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <Typography gutterBottom>Expiry Date</Typography>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <Typography gutterBottom>{formData.expDate}</Typography>
+                                </Grid>
+
                             </React.Fragment>
-                        ))}
                     </Grid>
                 </Grid>
             </Grid>

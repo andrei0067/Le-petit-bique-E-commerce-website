@@ -13,6 +13,7 @@ const adminReducer = (state = initialState, action) => {
                 ...state,
                 products: action.products,
             }
+
         case IS_LOADING:
             return {
                 ...state,

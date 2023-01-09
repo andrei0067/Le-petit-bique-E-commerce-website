@@ -23,7 +23,7 @@ function MediaCardCustom(props) {
         setLoading(true)
       props.dispatchGetImage(imageId , folderId , handleCallback);
     },[] );
-
+console.log("Imaginea din media card:" , imageId , folderId)
     if(loading) {
         return <Spinner/>
     }

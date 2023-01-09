@@ -4,8 +4,28 @@ import {getStorage} from "firebase/storage";
 import {ref, uploadBytes} from "@firebase/storage";
 
 const productCollectionRef = collection(database,"products");
+const contactsCollectionRef = collection(database,"contacts");
 
 
+/* FUNCTII FIREBASE PENTRU CONTACTS */
+
+export const createContactsFbService =async (contacts) => {
+    return await addDoc(contactsCollectionRef , contacts ).then(response=>{
+        return response.id
+    }).catch((errors)=>{
+        return errors
+    })
+}
+export const fetchContactsFbService = async () => {
+    return await getDocs(contactsCollectionRef).then(response => {
+        return response.docs.map(doc => {
+            return {...doc.data() , id: doc.id}
+        })
+    }).catch(error => console.log(error));
+
+}
+
+/* FUNCTII FIREBASE PENTRU PRODUCTS */
 export const createProductFbService = async (products) => {
     return await addDoc(productCollectionRef , products ).then(response=>{
         return response.id
@@ -21,7 +41,6 @@ export const fetchProductsFbService = async () => {
             return {...doc.data() , id: doc.id}
         })
     }).catch(error => console.log(error));
-
 }
 
 export const deleteProductFbService = async (id) =>{

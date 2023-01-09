@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
+import {styled} from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
@@ -7,9 +7,12 @@ import ButtonBase from '@mui/material/ButtonBase';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import DeleteIcon from '@mui/icons-material/Delete';
-import {Box} from "@mui/material";
 import {makeStyles} from "@mui/styles";
 import {Item} from "semantic-ui-react";
+import {useEffect, useReducer, useState} from "react";
+import {connect} from "react-redux";
+import {getImage} from "../MediaCardCustom/actions";
+import {IconButton} from "@mui/material";
 
 const useStyles = makeStyles({
     divCSS: {
@@ -25,10 +28,24 @@ const Img = styled('img')({
 });
 
 
-export default function CartElement(props) {
+function CartElement(props) {
     const classes = useStyles();
-    const {title , price  , img} = props;
-    console.log("miau", img)
+    const {title, price, id, folderId} = props;
+    const [image, setImage] = useState('');
+
+    const handleCallback = (url) => {
+        setImage(url);
+    }
+    const handleDeleteItem = () => {
+        sessionStorage.removeItem(id);
+        window.location.reload();
+    }
+
+    useEffect(() => {
+        props.dispatchGetImage(folderId[0], id, handleCallback);
+    }, []);
+    console.log("Imaginea din cartElem", id, folderId[0])
+
     return (
         <Paper
             sx={{
@@ -40,14 +57,11 @@ export default function CartElement(props) {
                     theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
             }}
         >
-            {/*<Grid item xs container direction="row" justifyContent="space-around" alignItems="end">*/}
-
-            {/*</Grid>*/}
             <Grid container spacing={2}>
                 <Grid item xs={4}>
                     <Item>
-                        <ButtonBase sx={{ width: 100, height: 100 }}>
-                            <Img src={img} />
+                        <ButtonBase sx={{width: 100, height: 100}}>
+                            <Img src={image}/>
                         </ButtonBase>
                     </Item>
                 </Grid>
@@ -60,16 +74,22 @@ export default function CartElement(props) {
                                 </Typography>
                             </Grid>
                             <Grid item xs={2}>
-                                <DeleteIcon sx={{ marginLeft: '20px'}}/>
+                                <IconButton sx={{marginLeft: '20px'}}>
+                                    <DeleteIcon onClick={handleDeleteItem} />
+                                </IconButton>
                             </Grid>
                         </Grid>
-                        <Box sx={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                            <RemoveIcon/>
-                            <AddIcon/>
-                            <Typography variant="subtitle1" component="div" align='right' alignSelf="flex-end" color='blue'>
-                                {price}
-                            </Typography>
-                        </Box>
+                        <Grid container marginTop={'20px'}>
+                            <Grid item xs={8}>
+                            </Grid>
+                            <Grid item xs={4}>
+                                <Typography fontWeight="bold" variant="subtitle1" component="div" align='right' alignSelf="flex-end"
+                                            color='red'>
+                                    {price} Lei
+                                </Typography>
+                            </Grid>
+                        </Grid>
+
                     </Item>
                 </Grid>
             </Grid>
@@ -77,3 +97,9 @@ export default function CartElement(props) {
 
     );
 }
+
+const mapDispatchToProps = {
+    dispatchGetImage: getImage,
+}
+
+export default connect(null, mapDispatchToProps)(CartElement)

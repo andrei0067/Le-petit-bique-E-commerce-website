@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from "react-redux";
-import {createProduct, deleteProduct, getProduct, updateProduct} from "./actions";
+import {createProduct, deleteProduct, getProduct, isLoading, updateProduct} from "./actions";
 import {
     Avatar,
     Box,
@@ -39,10 +39,12 @@ function Admin(props) {
     }, []);
     if (loading) {
         return <Spinner className={classes.spinnerCss}/>
-
-
     }
+
+
     console.log("Produsele sunt :", products)
+
+
     return (
         <motion.div
             initial={{x: 600, opacity: 0}}
