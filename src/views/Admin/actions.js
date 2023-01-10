@@ -1,12 +1,48 @@
-import {SET_PRODUCTS, IS_LOADING} from "./constants"
+import {SET_PRODUCTS, IS_LOADING, SET_CONTACTS, SET_ORDERS} from "./constants"
 import {
     createProductFbService,
     fetchProductsFbService,
     deleteProductFbService,
     uploadPhotoFbService,
-    updateProductFbService
+    updateProductFbService, fetchContactsFbService, fetchOrdersFbService
 } from "../../services/firebaseService";
 import {openSnackbar} from "../SnackbarCustom/actions"
+
+export const getOrders = () => {
+    return async (dispatch) => {
+        dispatch(isLoading(true))
+        try {
+            const orders = await fetchOrdersFbService()
+            dispatch({
+                type: SET_ORDERS,
+                orders: orders,
+            })
+        } catch (errors) {
+            console.log(errors)
+        }
+        dispatch(isLoading(false))
+    }
+
+}
+export const getContacts = () => {
+    return async (dispatch) => {
+        dispatch(isLoading(true))
+        try {
+            const contacts = await fetchContactsFbService()
+            dispatch({
+                type: SET_CONTACTS,
+                contacts: contacts,
+            })
+        } catch (errors) {
+            console.log(errors)
+        }
+        dispatch(isLoading(false))
+    }
+
+}
+export const isLoading = (loading) => {
+    return {type: IS_LOADING, loading: loading}
+}
 
 export const getProduct = () => {
     return async (dispatch) => {
@@ -23,9 +59,6 @@ export const getProduct = () => {
         dispatch(isLoading(false))
     }
 
-}
-export const isLoading = (loading) => {
-    return {type: IS_LOADING, loading: loading}
 }
 
 export const deleteProduct = (id) => {

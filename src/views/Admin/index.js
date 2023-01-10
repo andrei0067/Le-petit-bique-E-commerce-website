@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from "react-redux";
-import {createProduct, deleteProduct, getProduct, isLoading, updateProduct} from "./actions";
+import {createProduct, deleteProduct, getContacts, getOrders, getProduct, isLoading, updateProduct} from "./actions";
 import {
     Avatar,
-    Box,
+    Box, Button, Card, CardContent,
     Divider,
     Grid,
     Typography
@@ -15,6 +15,9 @@ import {makeStyles} from '@mui/styles';
 import {DialogButtonCustom} from "../../components/DialogButtonCustom";
 import AddProduct from "./components/AddProduct";
 import {motion} from "framer-motion";
+import AccordionContacts from "../../components/AccordionContacts"
+import ContactsIcon from '@mui/icons-material/Contacts';
+import OrdersAdmin from "../../components/OrdersAdmin"
 
 const useStyles = makeStyles({
     spinnerCss: {
@@ -26,24 +29,37 @@ const useStyles = makeStyles({
         borderWidth: 1,
         borderRadius: 1,
     },
+    accordionCSS: {
+        width: '100%'
+    }
 });
 
 
 function Admin(props) {
 
     const classes = useStyles();
-    const {loading, products, dispatchDeleteProduct, dispatchCreateProduct, dispatchUpdateProduct} = props
+    const {
+        loading,
+        products,
+        contacts,
+        orders,
+        dispatchDeleteProduct,
+        dispatchCreateProduct,
+        dispatchUpdateProduct
+    } = props
 
     useEffect(() => {
         props.dispatchGetProducts();
+        props.dispatchGetContacts();
+        props.dispatchGetOrders();
     }, []);
     if (loading) {
         return <Spinner className={classes.spinnerCss}/>
     }
 
-
     console.log("Produsele sunt :", products)
-
+    console.log("contacts sunt : ", contacts)
+    console.log("ORDERS SUNT BAAAAAAAAA:", orders)
 
     return (
         <motion.div
@@ -53,6 +69,41 @@ function Admin(props) {
             transition={{duration: 0.5}}
         >
             <>
+                <Card sx={{
+                    width:'500px',
+                    height:'545px',
+                    padding: "10px",
+                    borderRadius: "10px",
+                }}>
+                    <CardContent>
+                        <hr style={{borderTop: 'dashed 2px grey', height: "0"}}/>
+                        <Box sx={{
+                            display: 'flex',
+                            justifyContent: 'space-between'
+                        }}>
+
+                            <p>test1</p>
+                            <p>test2</p>
+                        </Box>
+                        <Box sx={{
+                            display: 'flex',
+                            justifyContent: 'space-between'
+                        }}>
+                            <p>test1</p>
+                            <p>test1</p>
+                            <p>test2</p>
+                        </Box>
+                        <Box sx={{
+                            display: 'flex',
+                            justifyContent: 'center'
+                        }}>
+                            <Button>test</Button>
+                        </Box>
+                    </CardContent>
+                </Card>
+                <OrdersAdmin
+                    orders={orders}
+                />
                 <Box
                     sx={{
                         flex: 'auto',
@@ -81,7 +132,7 @@ function Admin(props) {
                     </DialogButtonCustom>
                 </Box>
                 <Divider/>
-                <Box sx={{mt: 5}}>
+                <Box sx={{left:'7%' ,top:'11%',height: '85%', width: '85%' , position:'absolute' }}>
                     <Divider/>
                     <Grid container spacing={2}>
                         {products.map(product => {
@@ -94,9 +145,35 @@ function Admin(props) {
                             </Grid>
                         })}
                     </Grid>
-
+                    <Box
+                        sx={{
+                            flex: 'auto',
+                            marginTop: 8,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            maxWidth: 720,
+                            alignItems: 'center',
+                        }}>
+                        <Avatar sx={{m: 1, bgcolor: '#008CBA'}}>
+                            <ContactsIcon/>
+                        </Avatar>
+                        <Typography align="center" color={'black'} component="h1" variant="h4" marginBottom={'50px'}>
+                            View contacts and messages sent by customers
+                        </Typography>
+                        {contacts.map(contact => {
+                            return <Grid item md={12} key={contact?.id} className={classes.accordionCSS}>
+                                <AccordionContacts
+                                    fullWidth
+                                    firstName={contact.firstName}
+                                    lastName={contact.lastName}
+                                    message={contact.message}
+                                    email={contact.email}
+                                />
+                                <Divider/>
+                            </Grid>
+                        })}
+                    </Box>
                 </Box>
-
             </>
         </motion.div>
     )
@@ -112,7 +189,9 @@ const mapDispatchToProps = {
     dispatchGetProducts: getProduct,
     dispatchCreateProduct: createProduct,
     dispatchDeleteProduct: deleteProduct,
-    dispatchUpdateProduct: updateProduct
+    dispatchUpdateProduct: updateProduct,
+    dispatchGetContacts: getContacts,
+    dispatchGetOrders: getOrders,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Admin)

@@ -9,6 +9,7 @@ import InfoIcon from '@mui/icons-material/Info';
 import {UserContext} from '../../context/UserContext'
 import CartElement from '../CartElement'
 import MenuAccount from'../MenuAccount'
+import ContactsIcon from '@mui/icons-material/Contacts';
 import {
     onAuthStateChanged,
     signOut,
@@ -210,13 +211,13 @@ function SidebarMui() {
                     <ListItem
                         button
                         component={NavLink}
-                        to="/about"
+                        to="/contact-us"
                         className={({isActive}) => isActive ? classes.active : ''}
                     >
                         <ListItemIcon class={classes.listTextColor}>
-                            <InfoIcon style={{marginRight: '20px'}}/>
+                            <ContactsIcon style={{marginRight: '20px'}}/>
                         </ListItemIcon>
-                        <ListItemText class={classes.listTextColor} primary="About"/>
+                        <ListItemText class={classes.listTextColor} primary="Contact us"/>
                     </ListItem>
                 </List>
             </Box>

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {connect} from "react-redux";
 import {createProduct, deleteProduct, getProduct, updateProduct} from "./actions";
 import {
@@ -10,6 +10,8 @@ import MediaCardAdmin from "./components/MediaCard";
 import Spinner from "../../components/Spinner";
 import {makeStyles} from '@mui/styles';
 import {motion} from "framer-motion";
+import SearchBar from "../../components/SearchBar"
+import MediaCard from './components/MediaCard';
 
 const useStyles = makeStyles({
     spinnerCss: {
@@ -28,6 +30,8 @@ function Admin(props) {
 
     const classes = useStyles();
     const {loading, products, dispatchDeleteProduct, dispatchCreateProduct, dispatchUpdateProduct} = props
+    const [searchValue,setSearchValue]=useState('');
+    const filteredProducts = products.filter(item => item?.title?.includes(searchValue))
 
     useEffect(() => {
         props.dispatchGetProducts();
@@ -37,6 +41,12 @@ function Admin(props) {
 
 
     }
+
+    const handleOnChange=(event)=> {
+        setSearchValue(event.target.value)
+    }
+
+
     console.log("Produsele din product index sunt :", products)
     return (
         <motion.div
@@ -60,7 +70,7 @@ function Admin(props) {
                 <Box sx={{mt: 5}}>
                     <Divider/>
                     <Grid container spacing={2}>
-                        {products.map(product => {
+                        {filteredProducts.map(product => {
                             return <Grid item xs={12} md={4} key={product?.id}>
                                 <MediaCardAdmin
                                     updateProduct={dispatchUpdateProduct}
@@ -70,7 +80,7 @@ function Admin(props) {
                             </Grid>
                         })}
                     </Grid>
-
+                    <SearchBar onSearchChange={handleOnChange}/>
                 </Box>
 
             </>

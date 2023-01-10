@@ -13,7 +13,7 @@ import {useState} from "react";
 
 
 
-export default function About() {
+export default function ContactUs() {
     const [contacts , setContacts] = useState({
         firstName:"",
         lastName:"",

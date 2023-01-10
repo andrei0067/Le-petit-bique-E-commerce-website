@@ -30,8 +30,8 @@ export const sidebarData = [
         cName: 'nav-text'
     },
     {
-        title: 'About',
-        path: '/About',
+        title: 'ContactUs',
+        path: '/ContactUs',
         icon: <IoIcons.IoMdHelpCircle />,
         cName: 'nav-text'
     }

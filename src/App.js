@@ -1,7 +1,7 @@
 import {
     BrowserRouter,
     Routes,
-    Route, Redirect, Navigate,
+    Route, Navigate,
 } from "react-router-dom";
 import {Provider} from "react-redux";
 import {store} from './store/store';
@@ -13,11 +13,11 @@ import Products from './views/Products';
 import Product from "./views/Product";
 import ForgotPassword from "./views/ForgotPassword";
 import CreateAccount from "./views/CreateAccount";
-import About from "./views/About";
 import GlobalWrapper from "./views/GlobalWrapper";
 import Admin from "./views/Admin";
 import {AnimatePresence } from "framer-motion";
 import Checkout from "./views/Checkout";
+import ContactUs from "./views/ContactUs";
 
 
 function App() {
@@ -28,7 +28,7 @@ function App() {
                         <Routes>
                             <Route exact path="/" element={<GlobalWrapper/>}>
                                 <Route path="/" element={<Navigate replace to="/home" />} />
-                                <Route path="about" element={<About/>}/>
+                                <Route path="contact-us" element={<ContactUs/>}/>
                                 <Route path="home" element={<Homepage/>}/>
                                 <Route path="forgot-password" element={<ForgotPassword/>}/>
                                 <Route path="create-account" element={<CreateAccount/>}/>

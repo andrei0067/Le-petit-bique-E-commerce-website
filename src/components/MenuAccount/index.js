@@ -31,6 +31,7 @@ export default function AccountMenu() {
 
     const handleLogout = () => {
         signOut(auth);
+        window.location.reload();
 
     }
 

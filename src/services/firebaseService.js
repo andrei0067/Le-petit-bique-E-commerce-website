@@ -5,7 +5,24 @@ import {ref, uploadBytes} from "@firebase/storage";
 
 const productCollectionRef = collection(database,"products");
 const contactsCollectionRef = collection(database,"contacts");
+const ordersCollectionRef = collection(database,"orders");
 
+/* FUNCTII FIREBASE PENTRU ORDERS */
+export const createOrdersFbService =async (orders) => {
+    return await addDoc(ordersCollectionRef , orders ).then(response=>{
+        return response.id
+    }).catch((errors)=>{
+        return errors
+    })
+}
+export const fetchOrdersFbService = async () => {
+    return await getDocs(ordersCollectionRef).then(response => {
+        return response.docs.map(doc => {
+            return {...doc.data() , id: doc.id}
+        })
+    }).catch(error => console.log(error));
+
+}
 
 /* FUNCTII FIREBASE PENTRU CONTACTS */
 
